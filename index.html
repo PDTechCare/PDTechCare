@@ -1,0 +1,2732 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PD TechCare - Quản lý sửa chữa</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+background:#f4f5f7;
+color:#111;
+}
+
+header{
+background:#111;
+color:white;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.logo{
+font-size:22px;
+font-weight:800;
+}
+
+.logo span{
+color:#f5c400;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:15px;
+}
+
+nav{
+display:flex;
+gap:8px;
+overflow-x:auto;
+margin-bottom:15px;
+}
+
+nav button{
+border:0;
+padding:11px 15px;
+border-radius:8px;
+background:white;
+cursor:pointer;
+white-space:nowrap;
+}
+
+nav button.active{
+background:#111;
+color:white;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.card{
+background:white;
+border-radius:14px;
+padding:18px;
+margin-bottom:15px;
+box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+h1{
+font-size:24px;
+margin-top:0;
+}
+
+h2{
+font-size:18px;
+margin-top:0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.grid3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+label{
+display:block;
+font-weight:600;
+font-size:13px;
+margin-bottom:5px;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:11px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+textarea{
+min-height:80px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:8px;
+padding:11px 15px;
+font-size:14px;
+cursor:pointer;
+}
+
+.btn{
+background:#111;
+color:white;
+}
+
+.green{
+background:#168a45;
+color:white;
+}
+
+.red{
+background:#d93025;
+color:white;
+}
+
+.yellow{
+background:#f5c400;
+color:#111;
+}
+
+.gray{
+background:#eee;
+color:#111;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.stat{
+background:white;
+padding:18px;
+border-radius:12px;
+}
+
+.stat small{
+color:#777;
+}
+
+.stat b{
+display:block;
+font-size:25px;
+margin-top:5px;
+}
+
+.service{
+display:grid;
+grid-template-columns:2fr .6fr 1fr 1fr auto;
+gap:8px;
+align-items:end;
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,
+td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+font-size:14px;
+}
+
+th{
+background:#f5f5f5;
+}
+
+.table{
+overflow-x:auto;
+}
+
+.badge{
+background:#eee;
+padding:5px 9px;
+border-radius:20px;
+font-size:12px;
+}
+
+.right{
+text-align:right;
+}
+
+.photo-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.photo{
+height:110px;
+border:1px dashed #aaa;
+border-radius:8px;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fafafa;
+}
+
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.search{
+margin-bottom:12px;
+}
+
+.notice{
+padding:12px;
+background:#fff7cc;
+border-radius:8px;
+margin-bottom:12px;
+font-size:13px;
+}
+
+.receipt{
+display:none;
+}
+
+@media(max-width:700px){
+
+.grid,
+.grid3{
+grid-template-columns:1fr;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.service{
+grid-template-columns:1fr 1fr;
+}
+
+.photo-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+header{
+padding:14px;
+}
+
+}
+
+@media print{
+
+body *{
+visibility:hidden;
+}
+
+.receipt,
+.receipt *{
+visibility:visible;
+}
+
+.receipt{
+display:block;
+position:absolute;
+left:0;
+top:0;
+width:100%;
+padding:20px;
+}
+
+.no-print{
+display:none!important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+PD <span>TechCare</span>
+</div>
+
+<div id="clock"></div>
+
+</header>
+
+
+<div class="container">
+
+
+<nav class="no-print">
+
+<button class="active"
+onclick="showPage('dashboard',this)">
+🏠 Tổng quan
+</button>
+
+<button
+onclick="showPage('new',this)">
+➕ Tiếp nhận máy
+</button>
+
+<button
+onclick="showPage('orders',this)">
+📋 Phiếu sửa chữa
+</button>
+
+<button
+onclick="showPage('customers',this)">
+👤 Khách hàng
+</button>
+
+<button
+onclick="showPage('warranty',this)">
+🛡️ Bảo hành
+</button>
+
+<button
+onclick="showPage('finance',this)">
+💰 Doanh thu
+</button>
+
+<button
+onclick="showPage('settings',this)">
+⚙️ Cài đặt
+</button>
+
+</nav>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<h1>PD TechCare</h1>
+
+<div class="stats">
+
+<div class="stat">
+
+<small>Đang sửa</small>
+
+<b id="pending">0</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>Đã xong</small>
+
+<b id="done">0</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>Đã trả</small>
+
+<b id="returned">0</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>Doanh thu</small>
+
+<b id="revenue">0đ</b>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📌 Phiếu gần đây</h2>
+
+<div id="recent"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="notice">
+
+💡 Hãy sao lưu dữ liệu thường xuyên trong mục
+<strong>⚙️ Cài đặt</strong>.
+
+</div>
+
+<button
+class="yellow"
+onclick="openNew()">
+
++ Tiếp nhận máy
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- NEW ORDER -->
+
+<section id="new" class="page">
+
+<div class="card">
+
+<h1>🧾 Tiếp nhận sửa chữa</h1>
+
+
+<div class="grid3">
+
+
+<div>
+
+<label>Mã phiếu</label>
+
+<input id="code" readonly>
+
+</div>
+
+
+<div>
+
+<label>Ngày nhận</label>
+
+<input
+id="date"
+type="datetime-local">
+
+</div>
+
+
+<div>
+
+<label>Trạng thái</label>
+
+<select id="status">
+
+<option>Đã tiếp nhận</option>
+
+<option>Đang kiểm tra</option>
+
+<option>Đang sửa</option>
+
+<option>Chờ linh kiện</option>
+
+<option>Đã sửa xong</option>
+
+<option>Đã trả máy</option>
+
+<option>Hủy sửa</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>👤 Khách hàng & thiết bị</h2>
+
+
+<div class="grid3">
+
+
+<div>
+
+<label>Tên khách hàng</label>
+
+<input id="customer">
+
+</div>
+
+
+<div>
+
+<label>Số điện thoại</label>
+
+<input id="phone">
+
+</div>
+
+
+<div>
+
+<label>Tên điện thoại</label>
+
+<input id="device">
+
+</div>
+
+
+<div>
+
+<label>IMEI / Serial</label>
+
+<input id="imei">
+
+</div>
+
+
+<div>
+
+<label>Màu máy</label>
+
+<input id="color">
+
+</div>
+
+
+<div>
+
+<label>Mã khóa</label>
+
+<input
+id="passcode"
+placeholder="Không bắt buộc">
+
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<div class="grid3">
+
+
+<div>
+
+<label>Lỗi khách báo</label>
+
+<textarea id="problem"></textarea>
+
+</div>
+
+
+<div>
+
+<label>Tình trạng máy khi nhận</label>
+
+<textarea id="condition"></textarea>
+
+</div>
+
+
+<div>
+
+<label>Phụ kiện đi kèm</label>
+
+<textarea id="accessories"></textarea>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- PHOTO -->
+
+<div class="card">
+
+<h2>📸 Tình trạng máy</h2>
+
+<div
+id="photos"
+class="photo-grid">
+</div>
+
+
+<input
+type="file"
+accept="image/*"
+multiple
+onchange="loadPhotos(event)"
+style="margin-top:10px">
+
+</div>
+
+
+
+<!-- SERVICES -->
+
+<div class="card">
+
+<h2>🔧 Dịch vụ sửa chữa</h2>
+
+<div id="services"></div>
+
+
+<button
+class="green"
+onclick="addService()">
+
++ Thêm dịch vụ
+
+</button>
+
+
+<br><br>
+
+
+<div class="grid3">
+
+
+<div>
+
+<label>Giảm giá</label>
+
+<input
+id="discount"
+type="number"
+value="0"
+oninput="calculate()">
+
+</div>
+
+
+<div>
+
+<label>Tiền cọc</label>
+
+<input
+id="deposit"
+type="number"
+value="0"
+oninput="calculate()">
+
+</div>
+
+
+<div>
+
+<label>Thanh toán</label>
+
+<select id="payment">
+
+<option>Chưa thanh toán</option>
+
+<option>Tiền mặt</option>
+
+<option>Chuyển khoản</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<h2 class="right">
+
+Tổng:
+<span id="total">0đ</span>
+
+</h2>
+
+
+<div class="right">
+
+Còn phải thu:
+
+<strong id="remain">
+0đ
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<div class="card">
+
+<label>Ghi chú</label>
+
+<textarea id="note"></textarea>
+
+<br><br>
+
+
+<button
+class="yellow"
+onclick="saveOrder()">
+
+💾 Lưu phiếu
+
+</button>
+
+
+<button
+class="green"
+onclick="printCurrent()">
+
+🖨️ In biên nhận
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<div class="card">
+
+<h1>📋 Phiếu sửa chữa</h1>
+
+
+<input
+class="search"
+id="search"
+placeholder="Tìm mã phiếu, tên, SĐT, IMEI..."
+oninput="renderOrders()">
+
+
+<div class="table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Mã</th>
+
+<th>Khách</th>
+
+<th>Thiết bị</th>
+
+<th>Trạng thái</th>
+
+<th>Tổng</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="ordersList">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CUSTOMERS -->
+
+<section id="customers" class="page">
+
+<div class="card">
+
+<h1>👤 Khách hàng</h1>
+
+
+<input
+id="customerSearch"
+placeholder="Tìm khách hàng..."
+oninput="renderCustomers()">
+
+
+<br><br>
+
+
+<div class="table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Khách</th>
+
+<th>SĐT</th>
+
+<th>Số phiếu</th>
+
+<th>Tổng tiền</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="customersList">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- WARRANTY -->
+
+<section id="warranty" class="page">
+
+<div class="card">
+
+<h1>🛡️ Bảo hành</h1>
+
+
+<div class="notice">
+
+Nhập mã phiếu hoặc số điện thoại khách hàng.
+
+</div>
+
+
+<input
+id="warrantySearch"
+placeholder="Mã phiếu / SĐT..."
+oninput="searchWarranty()">
+
+
+<div id="warrantyResult"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- FINANCE -->
+
+<section id="finance" class="page">
+
+<div class="stats">
+
+<div class="stat">
+
+<small>Tổng doanh thu</small>
+
+<b id="financeTotal">
+0đ
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>Đã thu</small>
+
+<b id="financePaid">
+0đ
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>Còn nợ</small>
+
+<b id="financeDebt">
+0đ
+</b>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>💰 Chi tiết doanh thu</h2>
+
+<div id="financeList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- SETTINGS -->
+
+<section id="settings" class="page">
+
+<div class="card">
+
+<h1>⚙️ Cài đặt PD TechCare</h1>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Tên cửa hàng</label>
+
+<input
+id="shopName"
+value="PD TechCare">
+
+</div>
+
+
+<div>
+
+<label>Số điện thoại</label>
+
+<input id="shopPhone">
+
+</div>
+
+
+<div>
+
+<label>Địa chỉ</label>
+
+<input id="shopAddress">
+
+</div>
+
+
+<div>
+
+<label>Nhân viên</label>
+
+<input id="staff">
+
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<button
+class="green"
+onclick="saveSettings()">
+
+Lưu cài đặt
+
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>💾 Sao lưu dữ liệu</h2>
+
+
+<button
+class="btn"
+onclick="backup()">
+
+Xuất dữ liệu
+
+</button>
+
+
+<button
+class="gray"
+onclick="document.getElementById('import').click()">
+
+Nhập dữ liệu
+
+</button>
+
+
+<input
+id="import"
+type="file"
+accept=".json"
+hidden
+onchange="restore(event)">
+
+</div>
+
+</section>
+
+
+
+<!-- PRINT RECEIPT -->
+
+<div class="receipt">
+
+<div style="text-align:center">
+
+<h2 id="rShop">
+PD TechCare
+</h2>
+
+<div id="rAddress"></div>
+
+<div id="rShopPhone"></div>
+
+<h2>
+PHIẾU TIẾP NHẬN SỬA CHỮA
+</h2>
+
+<b id="rCode"></b>
+
+</div>
+
+
+<hr>
+
+
+<p>
+<strong>Khách hàng:</strong>
+<span id="rCustomer"></span>
+</p>
+
+
+<p>
+<strong>SĐT:</strong>
+<span id="rPhone"></span>
+</p>
+
+
+<p>
+<strong>Thiết bị:</strong>
+<span id="rDevice"></span>
+</p>
+
+
+<p>
+<strong>IMEI:</strong>
+<span id="rImei"></span>
+</p>
+
+
+<p>
+<strong>Ngày nhận:</strong>
+<span id="rDate"></span>
+</p>
+
+
+<h3>Lỗi khách báo</h3>
+
+<div id="rProblem"></div>
+
+
+<h3>Tình trạng máy</h3>
+
+<div id="rCondition"></div>
+
+
+<h3>Phụ kiện</h3>
+
+<div id="rAccessories"></div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Dịch vụ</th>
+
+<th>SL</th>
+
+<th>Đơn giá</th>
+
+<th>Thành tiền</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="rServices"></tbody>
+
+</table>
+
+
+<h2 class="right">
+
+TỔNG:
+
+<span id="rTotal"></span>
+
+</h2>
+
+
+<p class="right">
+
+Đã cọc:
+
+<span id="rDeposit"></span>
+
+</p>
+
+
+<p class="right">
+
+Còn thu:
+
+<strong id="rRemain"></strong>
+
+</p>
+
+
+<h3>Ghi chú</h3>
+
+<div id="rNote"></div>
+
+
+<div style="
+display:flex;
+justify-content:space-between;
+text-align:center;
+margin-top:60px;
+">
+
+<div>
+
+Khách hàng
+
+<br><br><br>
+
+________________
+
+</div>
+
+
+<div>
+
+Nhân viên
+
+<br><br><br>
+
+________________
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   PD TECHCARE
+========================= */
+
+
+const $ = id =>
+document.getElementById(id);
+
+
+function money(number){
+
+return Number(number || 0)
+.toLocaleString("vi-VN")+"đ";
+
+}
+
+
+/* =========================
+   DATABASE
+========================= */
+
+
+function getOrders(){
+
+return JSON.parse(
+localStorage.getItem("PDTechCareOrders") || "[]"
+);
+
+}
+
+
+function saveOrders(data){
+
+localStorage.setItem(
+"PDTechCareOrders",
+JSON.stringify(data)
+);
+
+}
+
+
+/* =========================
+   CODE
+========================= */
+
+
+function newCode(){
+
+let number =
+Number(localStorage.getItem("PDTechCareNumber") || 0);
+
+number++;
+
+localStorage.setItem(
+"PDTechCareNumber",
+number
+);
+
+return "PDTC-"+String(number).padStart(5,"0");
+
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+
+function showPage(id,button){
+
+document
+.querySelectorAll(".page")
+.forEach(p =>
+p.classList.remove("active")
+);
+
+$(id).classList.add("active");
+
+
+document
+.querySelectorAll("nav button")
+.forEach(b =>
+b.classList.remove("active")
+);
+
+if(button)
+button.classList.add("active");
+
+
+refresh();
+
+}
+
+
+function openNew(){
+
+let button =
+document.querySelectorAll("nav button")[1];
+
+showPage("new",button);
+
+newOrder();
+
+}
+
+
+/* =========================
+   NEW ORDER
+========================= */
+
+
+function newOrder(){
+
+$("code").value =
+newCode();
+
+
+let now =
+new Date(
+Date.now() -
+new Date().getTimezoneOffset()*60000
+);
+
+$("date").value =
+now.toISOString().slice(0,16);
+
+
+[
+"customer",
+"phone",
+"device",
+"imei",
+"color",
+"passcode",
+"problem",
+"condition",
+"accessories",
+"note"
+]
+.forEach(id =>
+$(id).value=""
+);
+
+
+$("discount").value=0;
+
+$("deposit").value=0;
+
+$("status").value="Đã tiếp nhận";
+
+$("payment").value="Chưa thanh toán";
+
+$("services").innerHTML="";
+
+$("photos").innerHTML="";
+
+addService();
+
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+
+function addService(data={}){
+
+let div =
+document.createElement("div");
+
+div.className="service";
+
+
+div.innerHTML=`
+
+<div>
+
+<label>Dịch vụ</label>
+
+<input
+class="serviceName"
+value="${data.name || ""}"
+placeholder="Ép kính / Thay pin">
+
+</div>
+
+
+<div>
+
+<label>SL</label>
+
+<input
+class="serviceQty"
+type="number"
+min="1"
+value="${data.qty || 1}">
+
+</div>
+
+
+<div>
+
+<label>Đơn giá</label>
+
+<input
+class="servicePrice"
+type="number"
+value="${data.price || 0}">
+
+</div>
+
+
+<div>
+
+<label>Thành tiền</label>
+
+<input
+class="serviceTotal"
+readonly>
+
+</div>
+
+
+<button
+class="red"
+onclick="
+this.parentElement.remove();
+calculate();
+">
+
+Xóa
+
+</button>
+
+`;
+
+
+$("services")
+.appendChild(div);
+
+
+div
+.querySelectorAll("input")
+.forEach(input =>
+input.addEventListener(
+"input",
+calculate
+)
+);
+
+
+calculate();
+
+}
+
+
+/* =========================
+   CALCULATE
+========================= */
+
+
+function calculate(){
+
+let total=0;
+
+
+document
+.querySelectorAll(".service")
+.forEach(row=>{
+
+let qty =
+Number(
+row.querySelector(".serviceQty").value
+||0
+);
+
+let price =
+Number(
+row.querySelector(".servicePrice").value
+||0
+);
+
+
+let amount =
+qty*price;
+
+
+row.querySelector(".serviceTotal")
+.value =
+money(amount);
+
+
+total+=amount;
+
+});
+
+
+let discount =
+Number($("discount").value||0);
+
+
+total =
+Math.max(0,total-discount);
+
+
+let deposit =
+Number($("deposit").value||0);
+
+
+let remain =
+Math.max(0,total-deposit);
+
+
+$("total").innerText =
+money(total);
+
+
+$("remain").innerText =
+money(remain);
+
+
+return total;
+
+}
+
+
+/* =========================
+   PHOTOS
+========================= */
+
+
+function loadPhotos(event){
+
+$("photos").innerHTML="";
+
+
+[
+...event.target.files
+]
+.slice(0,8)
+.forEach(file=>{
+
+let reader =
+new FileReader();
+
+
+reader.onload=function(){
+
+let div =
+document.createElement("div");
+
+div.className="photo";
+
+
+div.innerHTML=
+`<img src="${reader.result}">`;
+
+
+$("photos")
+.appendChild(div);
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+
+/* =========================
+   GET FORM DATA
+========================= */
+
+
+function getFormData(){
+
+let services=[];
+
+
+document
+.querySelectorAll(".service")
+.forEach(row=>{
+
+services.push({
+
+name:
+row.querySelector(".serviceName")
+.value,
+
+qty:
+row.querySelector(".serviceQty")
+.value,
+
+price:
+row.querySelector(".servicePrice")
+.value
+
+});
+
+});
+
+
+let photos=[];
+
+
+document
+.querySelectorAll("#photos img")
+.forEach(img=>{
+
+photos.push(img.src);
+
+});
+
+
+return{
+
+code:$("code").value,
+
+date:$("date").value,
+
+status:$("status").value,
+
+customer:$("customer").value,
+
+phone:$("phone").value,
+
+device:$("device").value,
+
+imei:$("imei").value,
+
+color:$("color").value,
+
+passcode:$("passcode").value,
+
+problem:$("problem").value,
+
+condition:$("condition").value,
+
+accessories:$("accessories").value,
+
+note:$("note").value,
+
+discount:
+Number($("discount").value||0),
+
+deposit:
+Number($("deposit").value||0),
+
+payment:$("payment").value,
+
+services:services,
+
+photos:photos,
+
+total:calculate(),
+
+created:Date.now()
+
+};
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+
+function saveOrder(){
+
+let order =
+getFormData();
+
+
+let orders =
+getOrders();
+
+
+orders =
+orders.filter(
+x=>x.code!==order.code
+);
+
+
+orders.unshift(order);
+
+
+saveOrders(orders);
+
+
+alert(
+"Đã lưu phiếu "+order.code
+);
+
+
+refresh();
+
+}
+
+
+/* =========================
+   ORDER LIST
+========================= */
+
+
+function renderOrders(){
+
+let keyword =
+(
+$("search").value || ""
+)
+.toLowerCase();
+
+
+let orders =
+getOrders();
+
+
+orders =
+orders.filter(order=>{
+
+let text=
+(
+order.code+
+order.customer+
+order.phone+
+order.device+
+order.imei
+)
+.toLowerCase();
+
+
+return text.includes(keyword);
+
+});
+
+
+let html="";
+
+
+orders.forEach(order=>{
+
+html+=`
+
+<tr>
+
+<td>
+<strong>
+${order.code}
+</strong>
+</td>
+
+
+<td>
+
+${order.customer}
+
+<br>
+
+<small>
+${order.phone}
+</small>
+
+</td>
+
+
+<td>
+
+${order.device}
+
+<br>
+
+<small>
+${order.imei}
+</small>
+
+</td>
+
+
+<td>
+
+<span class="badge">
+${order.status}
+</span>
+
+</td>
+
+
+<td>
+
+${money(order.total)}
+
+</td>
+
+
+<td>
+
+<button
+class="gray"
+onclick="viewOrder('${order.code}')">
+
+Xem
+
+</button>
+
+
+<button
+class="green"
+onclick="printOrder('${order.code}')">
+
+In
+
+</button>
+
+
+<button
+class="red"
+onclick="deleteOrder('${order.code}')">
+
+X
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+$("ordersList").innerHTML =
+html ||
+`
+<tr>
+<td colspan="6">
+Không có phiếu
+</td>
+</tr>
+`;
+
+}
+
+
+/* =========================
+   VIEW
+========================= */
+
+
+function viewOrder(code){
+
+let order =
+getOrders()
+.find(x=>x.code===code);
+
+
+if(!order)
+return;
+
+
+let services =
+order.services
+.map(x=>
+`${x.name} × ${x.qty} = ${money(x.qty*x.price)}`
+)
+.join("<br>");
+
+
+alert(
+
+"PD TechCare\n\n"+
+"Mã: "+order.code+"\n"+
+"Khách: "+order.customer+"\n"+
+"SĐT: "+order.phone+"\n"+
+"Máy: "+order.device+"\n"+
+"IMEI: "+order.imei+"\n"+
+"Trạng thái: "+order.status+"\n\n"+
+"Dịch vụ:\n"+services+"\n\n"+
+"Tổng: "+money(order.total)
+
+);
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+
+function deleteOrder(code){
+
+if(
+!confirm(
+"Có chắc muốn xóa phiếu "+code+"?"
+)
+)
+return;
+
+
+let orders =
+getOrders()
+.filter(x=>x.code!==code);
+
+
+saveOrders(orders);
+
+
+refresh();
+
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+
+function printCurrent(){
+
+printOrderData(
+getFormData()
+);
+
+}
+
+
+function printOrder(code){
+
+let order =
+getOrders()
+.find(x=>x.code===code);
+
+
+if(order)
+printOrderData(order);
+
+}
+
+
+function printOrderData(order){
+
+let settings =
+JSON.parse(
+localStorage.getItem(
+"PDTechCareSettings"
+)||"{}"
+);
+
+
+$("rShop").innerText =
+settings.name ||
+"PD TechCare";
+
+
+$("rAddress").innerText =
+settings.address ||
+"";
+
+
+$("rShopPhone").innerText =
+settings.phone ||
+"";
+
+
+$("rCode").innerText =
+"Mã phiếu: "+order.code;
+
+
+$("rCustomer").innerText =
+order.customer;
+
+
+$("rPhone").innerText =
+order.phone;
+
+
+$("rDevice").innerText =
+order.device;
+
+
+$("rImei").innerText =
+order.imei;
+
+
+$("rDate").innerText =
+order.date;
+
+
+$("rProblem").innerText =
+order.problem;
+
+
+$("rCondition").innerText =
+order.condition;
+
+
+$("rAccessories").innerText =
+order.accessories;
+
+
+$("rNote").innerText =
+order.note;
+
+
+let html="";
+
+
+order.services.forEach(service=>{
+
+let amount =
+Number(service.qty)*
+Number(service.price);
+
+
+html+=`
+
+<tr>
+
+<td>${service.name}</td>
+
+<td>${service.qty}</td>
+
+<td>${money(service.price)}</td>
+
+<td>${money(amount)}</td>
+
+</tr>
+
+`;
+
+});
+
+
+$("rServices").innerHTML =
+html;
+
+
+$("rTotal").innerText =
+money(order.total);
+
+
+$("rDeposit").innerText =
+money(order.deposit);
+
+
+$("rRemain").innerText =
+money(
+Math.max(
+0,
+order.total-order.deposit
+)
+);
+
+
+window.print();
+
+}
+
+
+/* =========================
+   CUSTOMERS
+========================= */
+
+
+function renderCustomers(){
+
+let keyword =
+(
+$("customerSearch").value||""
+)
+.toLowerCase();
+
+
+let map={};
+
+
+getOrders()
+.forEach(order=>{
+
+let key =
+order.phone ||
+order.customer;
+
+
+if(!map[key]){
+
+map[key]={
+
+name:order.customer,
+
+phone:order.phone,
+
+count:0,
+
+total:0
+
+};
+
+}
+
+
+map[key].count++;
+
+map[key].total +=
+Number(order.total||0);
+
+});
+
+
+let html="";
+
+
+Object.values(map)
+.filter(x=>
+(
+x.name+x.phone
+)
+.toLowerCase()
+.includes(keyword)
+)
+.forEach(customer=>{
+
+html+=`
+
+<tr>
+
+<td>
+${customer.name}
+</td>
+
+<td>
+${customer.phone}
+</td>
+
+<td>
+${customer.count}
+</td>
+
+<td>
+${money(customer.total)}
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+$("customersList").innerHTML =
+html;
+
+}
+
+
+/* =========================
+   WARRANTY
+========================= */
+
+
+function searchWarranty(){
+
+let keyword =
+(
+$("warrantySearch").value||""
+)
+.toLowerCase();
+
+
+if(!keyword){
+
+$("warrantyResult")
+.innerHTML="";
+
+return;
+
+}
+
+
+let orders =
+getOrders()
+.filter(order=>
+(
+order.code+
+order.phone+
+order.customer
+)
+.toLowerCase()
+.includes(keyword)
+);
+
+
+let html="";
+
+
+orders.forEach(order=>{
+
+html+=`
+
+<div class="card">
+
+<strong>
+${order.code}
+</strong>
+
+<br>
+
+Khách:
+${order.customer}
+
+<br>
+
+SĐT:
+${order.phone}
+
+<br>
+
+Máy:
+${order.device}
+
+<br>
+
+Ngày sửa:
+${order.date}
+
+<br>
+
+Dịch vụ:
+${order.services
+.map(x=>x.name)
+.join(", ")}
+
+<br><br>
+
+<span class="badge">
+
+Kiểm tra bảo hành theo chính sách PD TechCare
+
+</span>
+
+</div>
+
+`;
+
+});
+
+
+$("warrantyResult")
+.innerHTML =
+html ||
+"Không tìm thấy phiếu.";
+
+}
+
+
+/* =========================
+   FINANCE
+========================= */
+
+
+function renderFinance(){
+
+let orders =
+getOrders();
+
+
+let total=0;
+
+let paid=0;
+
+
+orders.forEach(order=>{
+
+total +=
+Number(order.total||0);
+
+paid +=
+Number(order.deposit||0);
+
+});
+
+
+$("financeTotal")
+.innerText =
+money(total);
+
+
+$("financePaid")
+.innerText =
+money(paid);
+
+
+$("financeDebt")
+.innerText =
+money(
+Math.max(0,total-paid)
+);
+
+
+let html="";
+
+
+orders
+.slice(0,30)
+.forEach(order=>{
+
+html+=`
+
+<div style="
+display:flex;
+justify-content:space-between;
+padding:10px;
+border-bottom:1px solid #ddd;
+">
+
+<span>
+
+${order.code}
+-
+${order.customer}
+
+</span>
+
+<strong>
+
+${money(order.total)}
+
+</strong>
+
+</div>
+
+`;
+
+});
+
+
+$("financeList")
+.innerHTML =
+html;
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+
+function dashboard(){
+
+let orders =
+getOrders();
+
+
+let pending =
+orders.filter(order=>
+![
+"Đã trả máy",
+"Hủy sửa",
+"Đã sửa xong"
+]
+.includes(order.status)
+).length;
+
+
+let done =
+orders.filter(order=>
+order.status==="Đã sửa xong"
+).length;
+
+
+let returned =
+orders.filter(order=>
+order.status==="Đã trả máy"
+).length;
+
+
+let revenue =
+orders.reduce(
+(sum,order)=>
+sum+
+Number(order.total||0),
+0
+);
+
+
+$("pending")
+.innerText=pending;
+
+$("done")
+.innerText=done;
+
+$("returned")
+.innerText=returned;
+
+$("revenue")
+.innerText=money(revenue);
+
+
+let recent="";
+
+
+orders
+.slice(0,5)
+.forEach(order=>{
+
+recent+=`
+
+<div style="
+padding:10px 0;
+border-bottom:1px solid #ddd;
+">
+
+<strong>
+${order.code}
+</strong>
+
+-
+
+${order.customer}
+
+-
+
+${order.device}
+
+<span style="
+float:right;
+">
+
+${money(order.total)}
+
+</span>
+
+</div>
+
+`;
+
+});
+
+
+$("recent").innerHTML =
+recent ||
+"Chưa có phiếu.";
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+
+function saveSettings(){
+
+let data={
+
+name:$("shopName").value,
+
+phone:$("shopPhone").value,
+
+address:$("shopAddress").value,
+
+staff:$("staff").value
+
+};
+
+
+localStorage.setItem(
+"PDTechCareSettings",
+JSON.stringify(data)
+);
+
+
+alert(
+"Đã lưu thông tin PD TechCare"
+);
+
+}
+
+
+function loadSettings(){
+
+let settings =
+JSON.parse(
+localStorage.getItem(
+"PDTechCareSettings"
+)||"{}"
+);
+
+
+$("shopName").value =
+settings.name ||
+"PD TechCare";
+
+
+$("shopPhone").value =
+settings.phone ||
+"";
+
+
+$("shopAddress").value =
+settings.address ||
+"";
+
+
+$("staff").value =
+settings.staff ||
+"";
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+
+function backup(){
+
+let data={
+
+orders:getOrders(),
+
+settings:
+JSON.parse(
+localStorage.getItem(
+"PDTechCareSettings"
+)||"{}"
+),
+
+number:
+localStorage.getItem(
+"PDTechCareNumber"
+)||0
+
+};
+
+
+let blob =
+new Blob(
+[
+JSON.stringify(data,null,2)
+],
+{
+type:"application/json"
+}
+);
+
+
+let link =
+document.createElement("a");
+
+
+link.href =
+URL.createObjectURL(blob);
+
+
+link.download =
+"PD-TechCare-backup.json";
+
+
+link.click();
+
+}
+
+
+/* =========================
+   RESTORE
+========================= */
+
+
+function restore(event){
+
+let file =
+event.target.files[0];
+
+
+if(!file)
+return;
+
+
+let reader =
+new FileReader();
+
+
+reader.onload=function(){
+
+try{
+
+let data =
+JSON.parse(
+reader.result
+);
+
+
+saveOrders(
+data.orders || []
+);
+
+
+localStorage.setItem(
+"PDTechCareSettings",
+JSON.stringify(
+data.settings || {}
+)
+);
+
+
+localStorage.setItem(
+"PDTechCareNumber",
+data.number || 0
+);
+
+
+alert(
+"Khôi phục dữ liệu thành công"
+);
+
+
+refresh();
+
+
+}
+catch{
+
+alert(
+"File backup không hợp lệ"
+);
+
+}
+
+};
+
+
+reader.readAsText(file);
+
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+
+function refresh(){
+
+dashboard();
+
+renderOrders();
+
+renderCustomers();
+
+searchWarranty();
+
+renderFinance();
+
+loadSettings();
+
+}
+
+
+/* =========================
+   CLOCK
+========================= */
+
+
+setInterval(()=>{
+
+$("clock")
+.innerText =
+new Date()
+.toLocaleString("vi-VN");
+
+},1000);
+
+
+/* =========================
+   START
+========================= */
+
+
+loadSettings();
+
+newOrder();
+
+refresh();
+
+
+</script>
+
+</body>
+</html>
