@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>PD TechCare</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+ background:#f3f4f6;
+ color:#111;
+}
+header{
+ background:#111;
+ color:white;
+ padding:18px;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.logo{
+ font-size:26px;
+ font-weight:800;
+}
+.logo span{color:#f5c400}
+.clock{
+ float:right;
+ color:#ccc;
+ font-size:13px;
+ margin-top:8px;
+}
+main{
+ max-width:1000px;
+ margin:auto;
+ padding:15px;
+}
+.tabs{
+ display:flex;
+ gap:8px;
+ overflow:auto;
+ margin-bottom:15px;
+}
+.tabs button{
+ border:0;
+ background:white;
+ padding:12px 15px;
+ border-radius:13px;
+ white-space:nowrap;
+ font-size:15px;
+}
+.tabs button.active{
+ background:#111;
+ color:white;
+}
+h1{
+ font-size:28px;
+ margin:10px 0 18px;
+}
+h2{
+ margin-top:0;
+}
+.card{
+ background:white;
+ padding:18px;
+ border-radius:18px;
+ margin-bottom:15px;
+ box-shadow:0 2px 10px #0000000d;
+}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+}
+.stat{
+ background:white;
+ padding:18px;
+ border-radius:18px;
+}
+.stat small{
+ color:#777;
+}
+.stat strong{
+ display:block;
+ font-size:28px;
+ margin-top:6px;
+}
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+label{
+ display:block;
+ font-weight:700;
+ font-size:14px;
+ margin:12px 0 6px;
+}
+input,select,textarea{
+ width:100%;
+ padding:13px;
+ border:1px solid #ddd;
+ border-radius:11px;
+ font-size:16px;
+ background:white;
+}
+textarea{
+ min-height:80px;
+}
+button{
+ cursor:pointer;
+}
+.btn{
+ border:0;
+ padding:12px 16px;
+ border-radius:11px;
+ font-weight:700;
+ font-size:15px;
+ background:#eee;
+}
+.primary{
+ background:#f5c400;
+ color:#111;
+}
+.dark{
+ background:#111;
+ color:white;
+}
+.danger{
+ background:#ffe4e4;
+ color:#b00020;
+}
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:15px;
+}
+.hidden{
+ display:none!important;
+}
+.item{
+ background:white;
+ border:1px solid #eee;
+ padding:15px;
+ border-radius:15px;
+ margin:10px 0;
+}
+.top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ align-items:center;
+}
+.badge{
+ padding:5px 9px;
+ border-radius:20px;
+ background:#fff0b5;
+ font-size:12px;
+ font-weight:700;
+}
+.badge.done{
+ background:#dff6e6;
+ color:#14733c;
+}
+.badge.returned{
+ background:#e0edff;
+ color:#165bb5;
+}
+.member{
+ border:1px solid #eee;
+ border-radius:15px;
+ padding:15px;
+ margin:10px 0;
+}
+.avatar{
+ width:44px;
+ height:44px;
+ border-radius:50%;
+ background:#f5c400;
+ display:grid;
+ place-items:center;
+ font-weight:800;
+}
+.member-head{
+ display:flex;
+ gap:12px;
+ align-items:center;
+}
+.muted{
+ color:#777;
+ font-size:13px;
+}
+.active{
+ color:#14733c;
+ background:#dff6e6;
+ padding:5px 9px;
+ border-radius:20px;
+ font-size:12px;
+}
+.locked{
+ color:#666;
+ background:#eee;
+ padding:5px 9px;
+ border-radius:20px;
+ font-size:12px;
+}
+.modal{
+ position:fixed;
+ inset:0;
+ background:#0008;
+ display:none;
+ align-items:flex-end;
+ z-index:100;
+}
+.modal.show{
+ display:flex;
+}
+.sheet{
+ background:white;
+ width:100%;
+ max-height:92vh;
+ overflow:auto;
+ border-radius:22px 22px 0 0;
+ padding:18px;
+}
+.receipt{
+ max-width:700px;
+ margin:auto;
+ padding:20px;
+ background:white;
+}
+.receipt-title{
+ text-align:center;
+ font-size:25px;
+ font-weight:800;
+}
+.receipt-title span{
+ color:#f5c400;
+}
+.receipt-line{
+ border-top:1px dashed #888;
+ margin:15px 0;
+}
+.receipt table{
+ width:100%;
+ border-collapse:collapse;
+}
+.receipt td{
+ padding:7px 0;
+ vertical-align:top;
+}
+.right{
+ text-align:right;
+}
+.total{
+ font-size:22px;
+ font-weight:800;
+}
+.empty{
+ text-align:center;
+ color:#777;
+ padding:20px;
+}
+@media(min-width:700px){
+ .grid{
+  grid-template-columns:repeat(4,1fr);
+ }
+ .modal{
+  align-items:center;
+ }
+ .sheet{
+  max-width:760px;
+  border-radius:22px;
+ }
+}
+@media(max-width:600px){
+ .row{
+  grid-template-columns:1fr;
+ }
+}
+@media print{
+ header,
+ .tabs,
+ .no-print,
+ .modal{
+  display:none!important;
+ }
+ body{
+  background:white;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <span class="logo">PD <span>TechCare</span></span>
+ <span class="clock" id="clock"></span>
+</header>
+
+<main>
+
+<div class="tabs">
+ <button class="active" onclick="showPage('home',this)">🏠 Tổng quan</button>
+ <button onclick="showPage('new',this)">➕ Tiếp nhận</button>
+ <button onclick="showPage('list',this)">📋 Phiếu sửa</button>
+ <button onclick="showPage('members',this)">👥 Thành viên</button>
+</div>
+
+<!-- TỔNG QUAN -->
+
+<section id="home">
+
+<h1>PD TechCare</h1>
+
+<div class="grid">
+
+<div class="stat">
+ <small>Đang sửa</small>
+ <strong id="doing">0</strong>
+</div>
+
+<div class="stat">
+ <small>Đã xong</small>
+ <strong id="done">0</strong>
+</div>
+
+<div class="stat">
+ <small>Đã trả</small>
+ <strong id="returned">0</strong>
+</div>
+
+<div class="stat">
+ <small>Doanh thu</small>
+ <strong id="revenue">0đ</strong>
+</div>
+
+</div>
+
+<div class="card">
+<h2>📌 Phiếu gần đây</h2>
+<div id="recent"></div>
+</div>
+
+<div class="card">
+<h2>👥 Thành viên</h2>
+<p>Thành viên đang hoạt động: <b id="memberCount">0</b></p>
+<button class="btn primary" onclick="showPage('members')">
+➕ Quản lý thành viên
+</button>
+</div>
+
+</section>
+
+
+<!-- TẠO PHIẾU -->
+
+<section id="new" class="hidden">
+
+<h1>➕ Tiếp nhận máy</h1>
+
+<div class="card">
+
+<div class="row">
+
+<div>
+<label>Mã phiếu</label>
+<input id="code" readonly>
+</div>
+
+<div>
+<label>Ngày nhận</label>
+<input id="date" type="date">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Tên khách hàng *</label>
+<input id="customer" placeholder="Nguyễn Văn A">
+</div>
+
+<div>
+<label>Số điện thoại *</label>
+<input id="phone" type="tel" placeholder="09xxxxxxxx">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Hãng</label>
+<select id="brand">
+<option>Apple</option>
+<option>Samsung</option>
+<option>OPPO</option>
+<option>Vivo</option>
+<option>Xiaomi</option>
+<option>Realme</option>
+<option>Honor</option>
+<option>Huawei</option>
+<option>Khác</option>
+</select>
+</div>
+
+<div>
+<label>Model</label>
+<input id="model" placeholder="iPhone 15 Pro Max">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>IMEI / Serial</label>
+<input id="imei">
+</div>
+
+<div>
+<label>Mật khẩu máy</label>
+<input id="password">
+</div>
+
+</div>
+
+<label>Tình trạng máy</label>
+<textarea id="condition"
+placeholder="Trầy xước, nứt kính, móp viền..."></textarea>
+
+<label>Nội dung sửa chữa</label>
+<textarea id="repair"
+placeholder="Ép kính, thay pin, thay màn hình..."></textarea>
+
+<div class="row">
+
+<div>
+<label>Tiền linh kiện</label>
+<input id="parts" type="number" value="0">
+</div>
+
+<div>
+<label>Tiền công</label>
+<input id="labor" type="number" value="0">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Đã cọc</label>
+<input id="deposit" type="number" value="0">
+</div>
+
+<div>
+<label>Người phụ trách</label>
+<select id="technician"></select>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Trạng thái</label>
+
+<select id="status">
+<option>Đang sửa</option>
+<option>Đã xong</option>
+<option>Đã trả</option>
+</select>
+
+</div>
+
+<div>
+<label>Ghi chú</label>
+<input id="note">
+</div>
+
+</div>
+
+<div class="actions">
+<button class="btn primary" onclick="saveTicket()">
+💾 Lưu phiếu
+</button>
+
+<button class="btn" onclick="resetForm()">
+Hủy
+</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- DANH SÁCH PHIẾU -->
+
+<section id="list" class="hidden">
+
+<h1>📋 Phiếu sửa chữa</h1>
+
+<div class="card">
+
+<input
+ id="search"
+ placeholder="🔍 Tìm tên, SĐT, IMEI, mã phiếu..."
+ oninput="renderList()">
+
+<div id="listbox"></div>
+
+</div>
+
+</section>
+
+
+<!-- THÀNH VIÊN -->
+
+<section id="members" class="hidden">
+
+<h1>👥 Quản lý thành viên</h1>
+
+<div class="card">
+
+<h2>➕ Tạo thành viên</h2>
+
+<div class="row">
+
+<div>
+<label>Họ và tên *</label>
+<input id="memberName" placeholder="Nguyễn Văn B">
+</div>
+
+<div>
+<label>Số điện thoại</label>
+<input id="memberPhone" type="tel">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Vai trò</label>
+
+<select id="memberRole">
+
+<option>Kỹ thuật viên</option>
+<option>Nhân viên tiếp nhận</option>
+<option>Thu ngân</option>
+<option>Quản lý</option>
+<option>Quản trị viên</option>
+
+</select>
+
+</div>
+
+<div>
+<label>Tài khoản</label>
+<input id="memberUsername" placeholder="kythuat01">
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Mật khẩu</label>
+<input id="memberPassword" type="password">
+</div>
+
+<div>
+<label>Trạng thái</label>
+
+<select id="memberStatus">
+<option>Đang hoạt động</option>
+<option>Tạm khóa</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn primary" onclick="addMember()">
+💾 Thêm thành viên
+</button>
+
+<button class="btn" onclick="clearMemberForm()">
+Hủy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📋 Danh sách thành viên</h2>
+
+<input
+ id="memberSearch"
+ placeholder="🔍 Tìm thành viên..."
+ oninput="renderMembers()">
+
+<div id="memberList"></div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- MODAL PHIẾU -->
+
+<div class="modal" id="modal">
+
+<div class="sheet">
+
+<div class="actions no-print">
+
+<button class="btn" onclick="closeModal()">
+Đóng
+</button>
+
+<button class="btn primary" onclick="window.print()">
+🖨️ In / Lưu PDF
+</button>
+
+</div>
+
+<div id="receipt"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const TICKET_KEY="PD_TECHCARE_TICKETS";
+const MEMBER_KEY="PD_TECHCARE_MEMBERS";
+
+let tickets=
+JSON.parse(localStorage.getItem(TICKET_KEY)||"[]");
+
+let members=
+JSON.parse(localStorage.getItem(MEMBER_KEY)||"[]");
+
+
+function $(id){
+ return document.getElementById(id);
+}
+
+
+function money(number){
+
+return Number(number||0)
+.toLocaleString("vi-VN")+"đ";
+
+}
+
+
+function saveTickets(){
+
+localStorage.setItem(
+ TICKET_KEY,
+ JSON.stringify(tickets)
+);
+
+}
+
+
+function saveMembers(){
+
+localStorage.setItem(
+ MEMBER_KEY,
+ JSON.stringify(members)
+);
+
+}
+
+
+function escapeHTML(text){
+
+return String(text??"")
+.replace(/[&<>"']/g,function(c){
+
+return {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+
+}[c];
+
+});
+
+}
+
+
+function showPage(page,button){
+
+document
+.querySelectorAll("main section")
+.forEach(section=>{
+ section.classList.add("hidden");
+});
+
+$(page).classList.remove("hidden");
+
+
+document
+.querySelectorAll(".tabs button")
+.forEach(btn=>{
+ btn.classList.remove("active");
+});
+
+if(button){
+ button.classList.add("active");
+}
+
+
+if(page==="new"){
+ resetForm();
+}
+
+if(page==="list"){
+ renderList();
+}
+
+if(page==="members"){
+ renderMembers();
+}
+
+updateStats();
+
+window.scrollTo(0,0);
+
+}
+
+
+function nextTicketCode(){
+
+let max=0;
+
+tickets.forEach(ticket=>{
+
+let number=
+parseInt(
+String(ticket.code||"")
+.replace("PD-","")
+);
+
+if(number>max){
+ max=number;
+}
+
+});
+
+return "PD-"+
+String(max+1).padStart(5,"0");
+
+}
+
+
+function nextMemberCode(){
+
+let max=0;
+
+members.forEach(member=>{
+
+let number=
+parseInt(
+String(member.code||"")
+.replace("TV-","")
+);
+
+if(number>max){
+ max=number;
+}
+
+});
+
+return "TV-"+
+String(max+1).padStart(4,"0");
+
+}
+
+
+function resetForm(){
+
+$("code").value=
+nextTicketCode();
+
+$("date").value=
+new Date()
+.toISOString()
+.slice(0,10);
+
+$("customer").value="";
+$("phone").value="";
+$("model").value="";
+$("imei").value="";
+$("password").value="";
+$("condition").value="";
+$("repair").value="";
+$("parts").value=0;
+$("labor").value=0;
+$("deposit").value=0;
+$("status").value="Đang sửa";
+$("note").value="";
+
+fillTechnicians();
+
+}
+
+
+function fillTechnicians(){
+
+let activeMembers=
+members.filter(
+ member=>
+ member.status==="Đang hoạt động"
+);
+
+$("technician").innerHTML=
+'<option value="">— Chưa phân công —</option>'+
+activeMembers
+.map(member=>
+`<option value="${member.id}">
+${escapeHTML(member.name)}
+ · ${escapeHTML(member.role)}
+</option>`
+)
+.join("");
+
+}
+
+
+function saveTicket(){
+
+if(
+ !$("customer").value.trim()||
+ !$("phone").value.trim()
+){
+
+alert(
+"Vui lòng nhập tên và số điện thoại khách hàng."
+);
+
+return;
+
+}
+
+
+let parts=
+Number($("parts").value||0);
+
+let labor=
+Number($("labor").value||0);
+
+let deposit=
+Number($("deposit").value||0);
+
+let total=
+parts+labor;
+
+
+let ticket={
+
+id:Date.now(),
+
+code:$("code").value,
+
+date:$("date").value,
+
+customer:
+$("customer").value.trim(),
+
+phone:
+$("phone").value.trim(),
+
+brand:
+$("brand").value,
+
+model:
+$("model").value.trim(),
+
+imei:
+$("imei").value.trim(),
+
+password:
+$("password").value,
+
+condition:
+$("condition").value.trim(),
+
+repair:
+$("repair").value.trim(),
+
+parts:parts,
+
+labor:labor,
+
+deposit:deposit,
+
+total:total,
+
+balance:
+Math.max(total-deposit,0),
+
+status:
+$("status").value,
+
+note:
+$("note").value.trim(),
+
+technician:
+$("technician").value,
+
+createdAt:
+new Date().toISOString()
+
+};
+
+
+tickets.unshift(ticket);
+
+saveTickets();
+
+alert(
+"Đã tạo phiếu "+ticket.code
+);
+
+showPage("list");
+
+}
+
+
+function memberName(id){
+
+let member=
+members.find(
+ item=>item.id===id
+);
+
+return member
+?member.name
+:"Chưa phân công";
+
+}
+
+
+function renderList(){
+
+let search=
+($("search").value||"")
+.toLowerCase()
+.trim();
+
+
+let filtered=
+tickets.filter(ticket=>{
+
+let text=
+Object.values(ticket)
+.join(" ")
+.toLowerCase();
+
+return text.includes(search)||
+memberName(ticket.technician)
+.toLowerCase()
+.includes(search);
+
+});
+
+
+if(!filtered.length){
+
+$("listbox").innerHTML=
+'<div class="empty">Không có phiếu.</div>';
+
+return;
+
+}
+
+
+$("listbox").innerHTML=
+filtered
+.map(ticketHTML)
+.join("");
+
+}
+
+
+function ticketHTML(ticket){
+
+let badgeClass="";
+
+if(ticket.status==="Đã xong"){
+ badgeClass="done";
+}
+
+if(ticket.status==="Đã trả"){
+ badgeClass="returned";
+}
+
+
+return `
+
+<div class="item">
+
+<div class="top">
+
+<b>
+${escapeHTML(ticket.code)}
+ ·
+${escapeHTML(ticket.customer)}
+</b>
+
+<span class="badge ${badgeClass}">
+${escapeHTML(ticket.status)}
+</span>
+
+</div>
+
+<p>
+📱
+${escapeHTML(ticket.brand)}
+ ${escapeHTML(ticket.model)}
+</p>
+
+<p>
+📞 ${escapeHTML(ticket.phone)}
+</p>
+
+<p>
+👨‍🔧
+${escapeHTML(
+memberName(ticket.technician)
+)}
+</p>
+
+<p>
+💰 Tổng:
+<b>${money(ticket.total)}</b>
+</p>
+
+<p>
+💵 Còn:
+<b>${money(ticket.balance)}</b>
+</p>
+
+<div class="actions">
+
+<button
+class="btn"
+onclick="viewTicket(${ticket.id})">
+👁️ Xem
+</button>
+
+<button
+class="btn"
+onclick="changeStatus(${ticket.id})">
+🔄 Trạng thái
+</button>
+
+<button
+class="btn danger"
+onclick="deleteTicket(${ticket.id})">
+🗑️ Xóa
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function changeStatus(id){
+
+let ticket=
+tickets.find(
+ item=>item.id===id
+);
+
+if(!ticket)return;
+
+
+let status=
+prompt(
+"Nhập trạng thái:\nĐang sửa\nĐã xong\nĐã trả",
+ticket.status
+);
+
+
+if(
+ status==="Đang sửa"||
+ status==="Đã xong"||
+ status==="Đã trả"
+){
+
+ticket.status=status;
+
+saveTickets();
+
+updateStats();
+
+renderList();
+
+}
+
+}
+
+
+function deleteTicket(id){
+
+if(
+ !confirm(
+ "Bạn có chắc muốn xóa phiếu này?"
+ )
+)return;
+
+
+tickets=
+tickets.filter(
+ ticket=>ticket.id!==id
+);
+
+saveTickets();
+
+updateStats();
+
+renderList();
+
+}
+
+
+function viewTicket(id){
+
+let ticket=
+tickets.find(
+ item=>item.id===id
+);
+
+if(!ticket)return;
+
+
+$("receipt").innerHTML=`
+
+<div class="receipt">
+
+<div class="receipt-title">
+PD <span>TechCare</span>
+</div>
+
+<div style="text-align:center">
+PHIẾU TIẾP NHẬN / SỬA CHỮA
+</div>
+
+<div class="receipt-line"></div>
+
+<table>
+
+<tr>
+<td>Mã phiếu</td>
+<td class="right">
+<b>${escapeHTML(ticket.code)}</b>
+</td>
+</tr>
+
+<tr>
+<td>Ngày nhận</td>
+<td class="right">
+${escapeHTML(ticket.date)}
+</td>
+</tr>
+
+<tr>
+<td>Khách hàng</td>
+<td class="right">
+${escapeHTML(ticket.customer)}
+</td>
+</tr>
+
+<tr>
+<td>Số điện thoại</td>
+<td class="right">
+${escapeHTML(ticket.phone)}
+</td>
+</tr>
+
+<tr>
+<td>Thiết bị</td>
+<td class="right">
+${escapeHTML(ticket.brand)}
+ ${escapeHTML(ticket.model)}
+</td>
+</tr>
+
+<tr>
+<td>IMEI / Serial</td>
+<td class="right">
+${escapeHTML(ticket.imei||"-")}
+</td>
+</tr>
+
+<tr>
+<td>Người phụ trách</td>
+<td class="right">
+${escapeHTML(
+memberName(ticket.technician)
+)}
+</td>
+</tr>
+
+<tr>
+<td>Tình trạng</td>
+<td class="right">
+${escapeHTML(ticket.condition||"-")}
+</td>
+</tr>
+
+<tr>
+<td>Nội dung sửa</td>
+<td class="right">
+${escapeHTML(ticket.repair||"-")}
+</td>
+</tr>
+
+<tr>
+<td>Trạng thái</td>
+<td class="right">
+<b>${escapeHTML(ticket.status)}</b>
+</td>
+</tr>
+
+<tr>
+<td>Linh kiện</td>
+<td class="right">
+${money(ticket.parts)}
+</td>
+</tr>
+
+<tr>
+<td>Tiền công</td>
+<td class="right">
+${money(ticket.labor)}
+</td>
+</tr>
+
+<tr>
+<td>
+<b>TỔNG CỘNG</b>
+</td>
+<td class="right total">
+${money(ticket.total)}
+</td>
+</tr>
+
+<tr>
+<td>Đã cọc</td>
+<td class="right">
+${money(ticket.deposit)}
+</td>
+</tr>
+
+<tr>
+<td>
+<b>Còn lại</b>
+</td>
+<td class="right">
+<b>${money(ticket.balance)}</b>
+</td>
+</tr>
+
+</table>
+
+<div class="receipt-line"></div>
+
+<p>
+<b>Ghi chú:</b>
+${escapeHTML(ticket.note||"-")}
+</p>
+
+<div style="
+display:flex;
+justify-content:space-between;
+text-align:center;
+margin-top:45px;
+">
+
+<div>
+Khách hàng
+<br><br>
+____________
+</div>
+
+<div>
+PD TechCare
+<br><br>
+____________
+</div>
+
+</div>
+
+</div>
+`;
+
+$("modal")
+.classList.add("show");
+
+}
+
+
+function closeModal(){
+
+$("modal")
+.classList.remove("show");
+
+}
+
+
+function addMember(){
+
+let name=
+$("memberName")
+.value
+.trim();
+
+
+if(!name){
+
+alert(
+"Vui lòng nhập họ và tên."
+);
+
+return;
+
+}
+
+
+let username=
+$("memberUsername")
+.value
+.trim();
+
+
+if(
+ username &&
+ members.some(
+ member=>
+ member.username.toLowerCase()===
+ username.toLowerCase()
+ )
+){
+
+alert(
+"Tên tài khoản đã tồn tại."
+);
+
+return;
+
+}
+
+
+let member={
+
+id:"M"+Date.now(),
+
+code:nextMemberCode(),
+
+name:name,
+
+phone:
+$("memberPhone")
+.value.trim(),
+
+role:
+$("memberRole").value,
+
+username:username,
+
+password:
+$("memberPassword").value,
+
+status:
+$("memberStatus").value,
+
+createdAt:
+new Date().toISOString()
+
+};
+
+
+members.unshift(member);
+
+saveMembers();
+
+clearMemberForm();
+
+fillTechnicians();
+
+renderMembers();
+
+updateStats();
+
+alert(
+"Đã thêm thành viên "+member.name
+);
+
+}
+
+
+function clearMemberForm(){
+
+$("memberName").value="";
+$("memberPhone").value="";
+$("memberUsername").value="";
+$("memberPassword").value="";
+$("memberRole").value=
+"Kỹ thuật viên";
+$("memberStatus").value=
+"Đang hoạt động";
+
+}
+
+
+function renderMembers(){
+
+let search=
+($("memberSearch").value||"")
+.toLowerCase()
+.trim();
+
+
+let filtered=
+members.filter(member=>{
+
+let text=
+(
+member.code+
+" "+
+member.name+
+" "+
+member.phone+
+" "+
+member.role+
+" "+
+member.username
+)
+.toLowerCase();
+
+return text.includes(search);
+
+});
+
+
+if(!filtered.length){
+
+$("memberList").innerHTML=
+'<div class="empty">Chưa có thành viên.</div>';
+
+return;
+
+}
+
+
+$("memberList").innerHTML=
+filtered
+.map(member=>{
+
+let initials=
+member.name
+.trim()
+.split(/\s+/)
+.slice(-2)
+.map(word=>word[0])
+.join("")
+.toUpperCase();
+
+
+let statusClass=
+member.status===
+"Đang hoạt động"
+?"active"
+:"locked";
+
+
+return `
+
+<div class="member">
+
+<div class="top">
+
+<div class="member-head">
+
+<div class="avatar">
+${escapeHTML(initials)}
+</div>
+
+<div>
+
+<b>
+${escapeHTML(member.name)}
+</b>
+
+<div class="muted">
+${escapeHTML(member.code)}
+ ·
+${escapeHTML(member.role)}
+</div>
+
+</div>
+
+</div>
+
+<span class="${statusClass}">
+${escapeHTML(member.status)}
+</span>
+
+</div>
+
+<p class="muted">
+📞
+${escapeHTML(
+member.phone||"Chưa có SĐT"
+)}
+</p>
+
+<p class="muted">
+👤 Tài khoản:
+${escapeHTML(
+member.username||"Chưa tạo"
+)}
+</p>
+
+<div class="actions">
+
+<button
+class="btn"
+onclick="editMember('${member.id}')">
+✏️ Sửa
+</button>
+
+<button
+class="btn"
+onclick="toggleMember('${member.id}')">
+
+${
+member.status==="Đang hoạt động"
+?"🔒 Tạm khóa"
+:"🔓 Mở lại"
+}
+
+</button>
+
+<button
+class="btn danger"
+onclick="deleteMember('${member.id}')">
+🗑️ Xóa
+</button>
+
+</div>
+
+</div>
+
+`;
+
+})
+.join("");
+
+}
+
+
+function editMember(id){
+
+let member=
+members.find(
+ item=>item.id===id
+);
+
+if(!member)return;
+
+
+let name=
+prompt(
+"Họ và tên:",
+member.name
+);
+
+if(name===null)return;
+
+
+let phone=
+prompt(
+"Số điện thoại:",
+member.phone||""
+);
+
+if(phone===null)return;
+
+
+let role=
+prompt(
+"Vai trò:",
+member.role
+);
+
+if(role===null)return;
+
+
+let username=
+prompt(
+"Tài khoản:",
+member.username||""
+);
+
+if(username===null)return;
+
+
+if(
+ username &&
+ members.some(
+ item=>
+ item.id!==id &&
+ item.username.toLowerCase()===
+ username.toLowerCase()
+ )
+){
+
+alert(
+"Tên tài khoản đã tồn tại."
+);
+
+return;
+
+}
+
+
+member.name=
+name.trim()||member.name;
+
+member.phone=
+phone.trim();
+
+member.role=
+role.trim()||member.role;
+
+member.username=
+username.trim();
+
+
+let password=
+prompt(
+"Mật khẩu mới, bỏ trống để giữ nguyên:",
+""
+);
+
+
+if(
+ password!==null &&
+ password!==""
+){
+
+member.password=password;
+
+}
+
+
+saveMembers();
+
+fillTechnicians();
+
+renderMembers();
+
+updateStats();
+
+renderList();
+
+}
+
+
+function toggleMember(id){
+
+let member=
+members.find(
+ item=>item.id===id
+);
+
+if(!member)return;
+
+
+member.status=
+member.status==="Đang hoạt động"
+?"Tạm khóa"
+:"Đang hoạt động";
+
+
+saveMembers();
+
+fillTechnicians();
+
+renderMembers();
+
+updateStats();
+
+}
+
+
+function deleteMember(id){
+
+let member=
+members.find(
+ item=>item.id===id
+);
+
+if(!member)return;
+
+
+if(
+ !confirm(
+ "Xóa thành viên "+
+ member.name+
+ "?"
+ )
+)return;
+
+
+members=
+members.filter(
+ item=>item.id!==id
+);
+
+
+tickets.forEach(ticket=>{
+
+if(ticket.technician===id){
+
+ticket.technician="";
+
+}
+
+});
+
+
+saveMembers();
+
+saveTickets();
+
+fillTechnicians();
+
+renderMembers();
+
+renderList();
+
+updateStats();
+
+}
+
+
+function updateStats(){
+
+$("doing").textContent=
+tickets.filter(
+ ticket=>ticket.status==="Đang sửa"
+).length;
+
+
+$("done").textContent=
+tickets.filter(
+ ticket=>ticket.status==="Đã xong"
+).length;
+
+
+$("returned").textContent=
+tickets.filter(
+ ticket=>ticket.status==="Đã trả"
+).length;
+
+
+let revenue=
+tickets
+.filter(
+ ticket=>ticket.status==="Đã trả"
+)
+.reduce(
+ (sum,ticket)=>
+ sum+ticket.total,
+ 0
+);
+
+
+$("revenue").textContent=
+money(revenue);
+
+
+$("memberCount").textContent=
+members.filter(
+ member=>
+ member.status==="Đang hoạt động"
+).length;
+
+
+let recent=
+tickets.slice(0,5);
+
+
+$("recent").innerHTML=
+recent.length
+?recent.map(ticketHTML).join("")
+:'<div class="empty">Chưa có phiếu.</div>';
+
+}
+
+
+function clock(){
+
+let now=new Date();
+
+$("clock").textContent=
+now.toLocaleTimeString("vi-VN")+
+" "+
+now.toLocaleDateString("vi-VN");
+
+}
+
+setInterval(clock,1000);
+
+clock();
+
+
+/*
+Tạo tài khoản quản trị mặc định
+nếu chưa có thành viên.
+*/
+
+if(members.length===0){
+
+members=[{
+
+id:"M_ADMIN",
+
+code:"TV-0001",
+
+name:"Chủ cửa hàng",
+
+phone:"",
+
+role:"Quản trị viên",
+
+username:"admin",
+
+password:"",
+
+status:"Đang hoạt động",
+
+createdAt:
+new Date().toISOString()
+
+}];
+
+saveMembers();
+
+}
+
+
+resetForm();
+
+updateStats();
+
+</script>
+
+</body>
+</html>
