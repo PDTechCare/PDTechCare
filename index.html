@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#111">
 <title>PD TechCare</title>
 
 <style>
@@ -16,77 +16,74 @@ body{
 }
 header{
  background:#111;
- color:white;
- padding:18px;
+ color:#fff;
+ padding:17px;
  position:sticky;
  top:0;
- z-index:10;
+ z-index:20;
 }
 .logo{
- font-size:26px;
- font-weight:800;
+ font-size:25px;
+ font-weight:900;
 }
 .logo span{color:#f5c400}
 .clock{
  float:right;
  color:#ccc;
- font-size:13px;
+ font-size:12px;
  margin-top:8px;
 }
 main{
- max-width:1000px;
+ max-width:1100px;
  margin:auto;
- padding:15px;
+ padding:14px;
 }
 .tabs{
  display:flex;
- gap:8px;
- overflow:auto;
- margin-bottom:15px;
+ gap:7px;
+ overflow-x:auto;
+ padding-bottom:5px;
 }
 .tabs button{
  border:0;
- background:white;
- padding:12px 15px;
+ background:#fff;
+ padding:12px 14px;
  border-radius:13px;
  white-space:nowrap;
- font-size:15px;
+ font-weight:700;
 }
 .tabs button.active{
  background:#111;
- color:white;
+ color:#fff;
 }
+.hidden{display:none!important}
 h1{
- font-size:28px;
- margin:10px 0 18px;
+ font-size:27px;
+ margin:12px 0 17px;
 }
-h2{
- margin-top:0;
-}
+h2{margin-top:0}
 .card{
- background:white;
- padding:18px;
+ background:#fff;
  border-radius:18px;
+ padding:17px;
  margin-bottom:15px;
- box-shadow:0 2px 10px #0000000d;
+ box-shadow:0 2px 12px #0000000b;
 }
 .grid{
  display:grid;
  grid-template-columns:repeat(2,1fr);
- gap:12px;
+ gap:10px;
 }
 .stat{
- background:white;
- padding:18px;
- border-radius:18px;
+ background:#fff;
+ padding:17px;
+ border-radius:17px;
 }
-.stat small{
- color:#777;
-}
+.stat small{color:#777}
 .stat strong{
  display:block;
- font-size:28px;
- margin-top:6px;
+ font-size:27px;
+ margin-top:5px;
 }
 .row{
  display:grid;
@@ -95,30 +92,25 @@ h2{
 }
 label{
  display:block;
- font-weight:700;
  font-size:14px;
+ font-weight:700;
  margin:12px 0 6px;
 }
 input,select,textarea{
  width:100%;
- padding:13px;
  border:1px solid #ddd;
  border-radius:11px;
+ padding:13px;
  font-size:16px;
- background:white;
+ background:#fff;
 }
-textarea{
- min-height:80px;
-}
-button{
- cursor:pointer;
-}
+textarea{min-height:85px}
 .btn{
  border:0;
- padding:12px 16px;
  border-radius:11px;
- font-weight:700;
- font-size:15px;
+ padding:11px 14px;
+ font-weight:800;
+ font-size:14px;
  background:#eee;
 }
 .primary{
@@ -127,26 +119,31 @@ button{
 }
 .dark{
  background:#111;
- color:white;
+ color:#fff;
+}
+.success{
+ background:#dff6e6;
+ color:#126b37;
+}
+.blue{
+ background:#e4efff;
+ color:#175ba8;
 }
 .danger{
- background:#ffe4e4;
- color:#b00020;
+ background:#ffe2e2;
+ color:#a40018;
 }
 .actions{
  display:flex;
- gap:8px;
  flex-wrap:wrap;
- margin-top:15px;
-}
-.hidden{
- display:none!important;
+ gap:8px;
+ margin-top:13px;
 }
 .item{
- background:white;
- border:1px solid #eee;
+ background:#fff;
+ border:1px solid #e8e8e8;
+ border-radius:16px;
  padding:15px;
- border-radius:15px;
  margin:10px 0;
 }
 .top{
@@ -156,19 +153,29 @@ button{
  align-items:center;
 }
 .badge{
+ display:inline-block;
  padding:5px 9px;
  border-radius:20px;
- background:#fff0b5;
  font-size:12px;
- font-weight:700;
+ font-weight:800;
+ background:#fff0ae;
 }
 .badge.done{
  background:#dff6e6;
- color:#14733c;
+ color:#126b37;
 }
 .badge.returned{
- background:#e0edff;
- color:#165bb5;
+ background:#e2edff;
+ color:#175ba8;
+}
+.badge.waiting{
+ background:#ffe9c7;
+ color:#9a5a00;
+}
+.time{
+ color:#777;
+ font-size:12px;
+ margin-top:5px;
 }
 .member{
  border:1px solid #eee;
@@ -176,53 +183,52 @@ button{
  padding:15px;
  margin:10px 0;
 }
-.avatar{
- width:44px;
- height:44px;
- border-radius:50%;
- background:#f5c400;
- display:grid;
- place-items:center;
- font-weight:800;
-}
 .member-head{
  display:flex;
  gap:12px;
  align-items:center;
 }
-.muted{
- color:#777;
- font-size:13px;
+.avatar{
+ width:45px;
+ height:45px;
+ border-radius:50%;
+ background:#f5c400;
+ display:grid;
+ place-items:center;
+ font-weight:900;
 }
 .active{
- color:#14733c;
  background:#dff6e6;
+ color:#126b37;
  padding:5px 9px;
  border-radius:20px;
  font-size:12px;
 }
 .locked{
- color:#666;
  background:#eee;
+ color:#666;
  padding:5px 9px;
  border-radius:20px;
  font-size:12px;
 }
+.empty{
+ padding:25px;
+ text-align:center;
+ color:#777;
+}
 .modal{
+ display:none;
  position:fixed;
  inset:0;
  background:#0008;
- display:none;
- align-items:flex-end;
  z-index:100;
+ align-items:flex-end;
 }
-.modal.show{
- display:flex;
-}
+.modal.show{display:flex}
 .sheet{
- background:white;
+ background:#fff;
  width:100%;
- max-height:92vh;
+ max-height:94vh;
  overflow:auto;
  border-radius:22px 22px 0 0;
  padding:18px;
@@ -230,18 +236,14 @@ button{
 .receipt{
  max-width:700px;
  margin:auto;
- padding:20px;
- background:white;
 }
 .receipt-title{
  text-align:center;
- font-size:25px;
- font-weight:800;
+ font-size:27px;
+ font-weight:900;
 }
-.receipt-title span{
- color:#f5c400;
-}
-.receipt-line{
+.receipt-title span{color:#f5c400}
+.line{
  border-top:1px dashed #888;
  margin:15px 0;
 }
@@ -253,45 +255,43 @@ button{
  padding:7px 0;
  vertical-align:top;
 }
-.right{
- text-align:right;
-}
+.right{text-align:right}
 .total{
- font-size:22px;
- font-weight:800;
+ font-size:21px;
+ font-weight:900;
 }
-.empty{
- text-align:center;
- color:#777;
- padding:20px;
+.filter{
+ display:flex;
+ gap:8px;
+ overflow:auto;
+ margin:10px 0;
+}
+.filter button{
+ border:0;
+ padding:9px 12px;
+ border-radius:20px;
+ background:#eee;
+ white-space:nowrap;
+ font-weight:700;
+}
+.filter button.active{
+ background:#111;
+ color:#fff;
 }
 @media(min-width:700px){
- .grid{
-  grid-template-columns:repeat(4,1fr);
- }
- .modal{
-  align-items:center;
- }
+ .grid{grid-template-columns:repeat(4,1fr)}
+ .modal{align-items:center}
  .sheet{
   max-width:760px;
   border-radius:22px;
  }
 }
 @media(max-width:600px){
- .row{
-  grid-template-columns:1fr;
- }
+ .row{grid-template-columns:1fr}
 }
 @media print{
- header,
- .tabs,
- .no-print,
- .modal{
-  display:none!important;
- }
- body{
-  background:white;
- }
+ header,.tabs,.no-print{display:none!important}
+ body{background:#fff}
 }
 </style>
 </head>
@@ -306,11 +306,29 @@ button{
 <main>
 
 <div class="tabs">
- <button class="active" onclick="showPage('home',this)">🏠 Tổng quan</button>
- <button onclick="showPage('new',this)">➕ Tiếp nhận</button>
- <button onclick="showPage('list',this)">📋 Phiếu sửa</button>
- <button onclick="showPage('members',this)">👥 Thành viên</button>
+
+<button class="active" onclick="showPage('home',this)">
+🏠 Tổng quan
+</button>
+
+<button onclick="showPage('new',this)">
+➕ Tiếp nhận
+</button>
+
+<button onclick="showPage('repair',this)">
+🛠️ Quản lý sửa chữa
+</button>
+
+<button onclick="showPage('list',this)">
+📋 Tất cả phiếu
+</button>
+
+<button onclick="showPage('members',this)">
+👥 Thành viên
+</button>
+
 </div>
+
 
 <!-- TỔNG QUAN -->
 
@@ -321,48 +339,51 @@ button{
 <div class="grid">
 
 <div class="stat">
- <small>Đang sửa</small>
- <strong id="doing">0</strong>
+<small>🟡 Đang sửa</small>
+<strong id="doing">0</strong>
 </div>
 
 <div class="stat">
- <small>Đã xong</small>
- <strong id="done">0</strong>
+<small>🟢 Đã xong</small>
+<strong id="done">0</strong>
 </div>
 
 <div class="stat">
- <small>Đã trả</small>
- <strong id="returned">0</strong>
+<small>🔵 Đã trả</small>
+<strong id="returned">0</strong>
 </div>
 
 <div class="stat">
- <small>Doanh thu</small>
- <strong id="revenue">0đ</strong>
+<small>💰 Doanh thu</small>
+<strong id="revenue">0đ</strong>
 </div>
 
 </div>
 
 <div class="card">
-<h2>📌 Phiếu gần đây</h2>
+
+<h2>🛠️ Máy đang sửa</h2>
+
+<div id="homeRepair"></div>
+
+</div>
+
+<div class="card">
+
+<h2>📋 Phiếu gần đây</h2>
+
 <div id="recent"></div>
-</div>
 
-<div class="card">
-<h2>👥 Thành viên</h2>
-<p>Thành viên đang hoạt động: <b id="memberCount">0</b></p>
-<button class="btn primary" onclick="showPage('members')">
-➕ Quản lý thành viên
-</button>
 </div>
 
 </section>
 
 
-<!-- TẠO PHIẾU -->
+<!-- TIẾP NHẬN -->
 
 <section id="new" class="hidden">
 
-<h1>➕ Tiếp nhận máy</h1>
+<h1>➕ Tiếp nhận sửa chữa</h1>
 
 <div class="card">
 
@@ -398,6 +419,7 @@ button{
 
 <div>
 <label>Hãng</label>
+
 <select id="brand">
 <option>Apple</option>
 <option>Samsung</option>
@@ -407,8 +429,10 @@ button{
 <option>Realme</option>
 <option>Honor</option>
 <option>Huawei</option>
+<option>Nokia</option>
 <option>Khác</option>
 </select>
+
 </div>
 
 <div>
@@ -433,12 +457,14 @@ button{
 </div>
 
 <label>Tình trạng máy</label>
+
 <textarea id="condition"
-placeholder="Trầy xước, nứt kính, móp viền..."></textarea>
+placeholder="Nứt kính, bể màn, máy không lên nguồn..."></textarea>
 
 <label>Nội dung sửa chữa</label>
+
 <textarea id="repair"
-placeholder="Ép kính, thay pin, thay màn hình..."></textarea>
+placeholder="Ép kính, thay màn, thay pin..."></textarea>
 
 <div class="row">
 
@@ -462,58 +488,87 @@ placeholder="Ép kính, thay pin, thay màn hình..."></textarea>
 </div>
 
 <div>
-<label>Người phụ trách</label>
+<label>Kỹ thuật viên</label>
 <select id="technician"></select>
 </div>
 
 </div>
 
-<div class="row">
-
-<div>
-<label>Trạng thái</label>
-
-<select id="status">
-<option>Đang sửa</option>
-<option>Đã xong</option>
-<option>Đã trả</option>
-</select>
-
-</div>
-
-<div>
 <label>Ghi chú</label>
-<input id="note">
-</div>
-
-</div>
+<input id="note" placeholder="Ghi chú cho kỹ thuật viên...">
 
 <div class="actions">
-<button class="btn primary" onclick="saveTicket()">
-💾 Lưu phiếu
+
+<button class="btn primary"
+onclick="saveTicket()">
+💾 Tạo phiếu
 </button>
 
-<button class="btn" onclick="resetForm()">
+<button class="btn"
+onclick="resetForm()">
 Hủy
 </button>
+
 </div>
 
 </div>
+
 </section>
 
 
-<!-- DANH SÁCH PHIẾU -->
+<!-- QUẢN LÝ SỬA CHỮA -->
+
+<section id="repair" class="hidden">
+
+<h1>🛠️ Quản lý sửa chữa</h1>
+
+<div class="card">
+
+<div class="filter">
+
+<button class="active"
+onclick="setRepairFilter('all',this)">
+Tất cả
+</button>
+
+<button onclick="setRepairFilter('Đang sửa',this)">
+🟡 Đang sửa
+</button>
+
+<button onclick="setRepairFilter('Đã xong',this)">
+🟢 Đã xong
+</button>
+
+<button onclick="setRepairFilter('Đã trả',this)">
+🔵 Đã trả
+</button>
+
+</div>
+
+<input
+id="repairSearch"
+placeholder="🔍 Tìm khách, SĐT, IMEI, mã phiếu..."
+oninput="renderRepair()">
+
+<div id="repairList"></div>
+
+</div>
+
+</section>
+
+
+<!-- TẤT CẢ PHIẾU -->
 
 <section id="list" class="hidden">
 
-<h1>📋 Phiếu sửa chữa</h1>
+<h1>📋 Tất cả phiếu</h1>
 
 <div class="card">
 
 <input
- id="search"
- placeholder="🔍 Tìm tên, SĐT, IMEI, mã phiếu..."
- oninput="renderList()">
+id="search"
+placeholder="🔍 Tìm kiếm..."
+oninput="renderList()">
 
 <div id="listbox"></div>
 
@@ -591,11 +646,13 @@ Hủy
 
 <div class="actions">
 
-<button class="btn primary" onclick="addMember()">
+<button class="btn primary"
+onclick="addMember()">
 💾 Thêm thành viên
 </button>
 
-<button class="btn" onclick="clearMemberForm()">
+<button class="btn"
+onclick="clearMemberForm()">
 Hủy
 </button>
 
@@ -609,9 +666,9 @@ Hủy
 <h2>📋 Danh sách thành viên</h2>
 
 <input
- id="memberSearch"
- placeholder="🔍 Tìm thành viên..."
- oninput="renderMembers()">
+id="memberSearch"
+placeholder="🔍 Tìm thành viên..."
+oninput="renderMembers()">
 
 <div id="memberList"></div>
 
@@ -622,7 +679,7 @@ Hủy
 </main>
 
 
-<!-- MODAL PHIẾU -->
+<!-- MODAL -->
 
 <div class="modal" id="modal">
 
@@ -630,11 +687,13 @@ Hủy
 
 <div class="actions no-print">
 
-<button class="btn" onclick="closeModal()">
+<button class="btn"
+onclick="closeModal()">
 Đóng
 </button>
 
-<button class="btn primary" onclick="window.print()">
+<button class="btn primary"
+onclick="window.print()">
 🖨️ In / Lưu PDF
 </button>
 
@@ -649,8 +708,8 @@ Hủy
 
 <script>
 
-const TICKET_KEY="PD_TECHCARE_TICKETS";
-const MEMBER_KEY="PD_TECHCARE_MEMBERS";
+const TICKET_KEY="PDTC_TICKETS_V3";
+const MEMBER_KEY="PDTC_MEMBERS_V3";
 
 let tickets=
 JSON.parse(localStorage.getItem(TICKET_KEY)||"[]");
@@ -658,36 +717,18 @@ JSON.parse(localStorage.getItem(TICKET_KEY)||"[]");
 let members=
 JSON.parse(localStorage.getItem(MEMBER_KEY)||"[]");
 
+let repairFilter="all";
+
 
 function $(id){
- return document.getElementById(id);
+return document.getElementById(id);
 }
 
 
-function money(number){
+function money(n){
 
-return Number(number||0)
+return Number(n||0)
 .toLocaleString("vi-VN")+"đ";
-
-}
-
-
-function saveTickets(){
-
-localStorage.setItem(
- TICKET_KEY,
- JSON.stringify(tickets)
-);
-
-}
-
-
-function saveMembers(){
-
-localStorage.setItem(
- MEMBER_KEY,
- JSON.stringify(members)
-);
 
 }
 
@@ -703,7 +744,6 @@ return {
 ">":"&gt;",
 '"':"&quot;",
 "'":"&#39;"
-
 }[c];
 
 });
@@ -711,43 +751,22 @@ return {
 }
 
 
-function showPage(page,button){
+function saveTickets(){
 
-document
-.querySelectorAll("main section")
-.forEach(section=>{
- section.classList.add("hidden");
-});
+localStorage.setItem(
+TICKET_KEY,
+JSON.stringify(tickets)
+);
 
-$(page).classList.remove("hidden");
-
-
-document
-.querySelectorAll(".tabs button")
-.forEach(btn=>{
- btn.classList.remove("active");
-});
-
-if(button){
- button.classList.add("active");
 }
 
 
-if(page==="new"){
- resetForm();
-}
+function saveMembers(){
 
-if(page==="list"){
- renderList();
-}
-
-if(page==="members"){
- renderMembers();
-}
-
-updateStats();
-
-window.scrollTo(0,0);
+localStorage.setItem(
+MEMBER_KEY,
+JSON.stringify(members)
+);
 
 }
 
@@ -756,17 +775,15 @@ function nextTicketCode(){
 
 let max=0;
 
-tickets.forEach(ticket=>{
+tickets.forEach(t=>{
 
-let number=
+let n=
 parseInt(
-String(ticket.code||"")
+String(t.code||"")
 .replace("PD-","")
 );
 
-if(number>max){
- max=number;
-}
+if(n>max)max=n;
 
 });
 
@@ -780,17 +797,15 @@ function nextMemberCode(){
 
 let max=0;
 
-members.forEach(member=>{
+members.forEach(m=>{
 
-let number=
+let n=
 parseInt(
-String(member.code||"")
+String(m.code||"")
 .replace("TV-","")
 );
 
-if(number>max){
- max=number;
-}
+if(n>max)max=n;
 
 });
 
@@ -800,15 +815,43 @@ String(max+1).padStart(4,"0");
 }
 
 
+function showPage(page,button){
+
+document
+.querySelectorAll("main section")
+.forEach(x=>x.classList.add("hidden"));
+
+$(page).classList.remove("hidden");
+
+
+document
+.querySelectorAll(".tabs button")
+.forEach(x=>x.classList.remove("active"));
+
+if(button)button.classList.add("active");
+
+
+if(page==="new")resetForm();
+
+if(page==="repair")renderRepair();
+
+if(page==="list")renderList();
+
+if(page==="members")renderMembers();
+
+updateStats();
+
+window.scrollTo(0,0);
+
+}
+
+
 function resetForm(){
 
-$("code").value=
-nextTicketCode();
+$("code").value=nextTicketCode();
 
 $("date").value=
-new Date()
-.toISOString()
-.slice(0,10);
+new Date().toISOString().slice(0,10);
 
 $("customer").value="";
 $("phone").value="";
@@ -820,7 +863,6 @@ $("repair").value="";
 $("parts").value=0;
 $("labor").value=0;
 $("deposit").value=0;
-$("status").value="Đang sửa";
 $("note").value="";
 
 fillTechnicians();
@@ -830,35 +872,36 @@ fillTechnicians();
 
 function fillTechnicians(){
 
-let activeMembers=
+let active=
 members.filter(
- member=>
- member.status==="Đang hoạt động"
+m=>m.status==="Đang hoạt động"
 );
 
 $("technician").innerHTML=
 '<option value="">— Chưa phân công —</option>'+
-activeMembers
-.map(member=>
-`<option value="${member.id}">
-${escapeHTML(member.name)}
- · ${escapeHTML(member.role)}
+active.map(m=>
+`<option value="${m.id}">
+${escapeHTML(m.name)}
+ · ${escapeHTML(m.role)}
 </option>`
-)
-.join("");
+).join("");
 
 }
 
 
 function saveTicket(){
 
-if(
- !$("customer").value.trim()||
- !$("phone").value.trim()
-){
+let customer=
+$("customer").value.trim();
+
+let phone=
+$("phone").value.trim();
+
+
+if(!customer||!phone){
 
 alert(
-"Vui lòng nhập tên và số điện thoại khách hàng."
+"Vui lòng nhập tên và SĐT khách hàng."
 );
 
 return;
@@ -875,9 +918,8 @@ Number($("labor").value||0);
 let deposit=
 Number($("deposit").value||0);
 
-let total=
-parts+labor;
-
+let now=
+new Date().toISOString();
 
 let ticket={
 
@@ -887,29 +929,21 @@ code:$("code").value,
 
 date:$("date").value,
 
-customer:
-$("customer").value.trim(),
+customer:customer,
 
-phone:
-$("phone").value.trim(),
+phone:phone,
 
-brand:
-$("brand").value,
+brand:$("brand").value,
 
-model:
-$("model").value.trim(),
+model:$("model").value.trim(),
 
-imei:
-$("imei").value.trim(),
+imei:$("imei").value.trim(),
 
-password:
-$("password").value,
+password:$("password").value,
 
-condition:
-$("condition").value.trim(),
+condition:$("condition").value.trim(),
 
-repair:
-$("repair").value.trim(),
+repair:$("repair").value.trim(),
 
 parts:parts,
 
@@ -917,22 +951,22 @@ labor:labor,
 
 deposit:deposit,
 
-total:total,
+total:parts+labor,
 
 balance:
-Math.max(total-deposit,0),
+Math.max(parts+labor-deposit,0),
 
-status:
-$("status").value,
+status:"Đang sửa",
 
-note:
-$("note").value.trim(),
+technician:$("technician").value,
 
-technician:
-$("technician").value,
+note:$("note").value.trim(),
 
-createdAt:
-new Date().toISOString()
+receivedAt:now,
+
+completedAt:null,
+
+returnedAt:null
 
 };
 
@@ -942,24 +976,332 @@ tickets.unshift(ticket);
 saveTickets();
 
 alert(
-"Đã tạo phiếu "+ticket.code
+"Đã tạo phiếu "+ticket.code+
+"\nTrạng thái: Đang sửa"
 );
 
-showPage("list");
+showPage("repair");
 
 }
 
 
 function memberName(id){
 
-let member=
-members.find(
- item=>item.id===id
+let m=
+members.find(x=>x.id===id);
+
+return m?
+m.name:
+"Chưa phân công";
+
+}
+
+
+function formatDateTime(date){
+
+if(!date)return"-";
+
+return new Date(date)
+.toLocaleString("vi-VN");
+
+}
+
+
+function setRepairFilter(filter,button){
+
+repairFilter=filter;
+
+document
+.querySelectorAll(".filter button")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+renderRepair();
+
+}
+
+
+function renderRepair(){
+
+let search=
+($("repairSearch").value||"")
+.toLowerCase()
+.trim();
+
+
+let list=
+tickets.filter(t=>{
+
+let okFilter=
+repairFilter==="all"||
+t.status===repairFilter;
+
+let text=
+(
+t.code+
+" "+
+t.customer+
+" "+
+t.phone+
+" "+
+t.model+
+" "+
+t.imei+
+" "+
+memberName(t.technician)
+)
+.toLowerCase();
+
+return okFilter&&text.includes(search);
+
+});
+
+
+if(!list.length){
+
+$("repairList").innerHTML=
+'<div class="empty">Không có máy phù hợp.</div>';
+
+return;
+
+}
+
+
+$("repairList").innerHTML=
+list.map(repairCard).join("");
+
+}
+
+
+function repairCard(t){
+
+let badge="";
+
+if(t.status==="Đã xong"){
+badge='<span class="badge done">🟢 Đã xong</span>';
+}
+
+else if(t.status==="Đã trả"){
+badge='<span class="badge returned">🔵 Đã trả</span>';
+}
+
+else{
+badge='<span class="badge">🟡 Đang sửa</span>';
+}
+
+
+let buttons="";
+
+
+if(t.status==="Đang sửa"){
+
+buttons+=`
+
+<button
+class="btn success"
+onclick="completeRepair(${t.id})">
+
+✅ Hoàn thành sửa chữa
+
+</button>
+
+`;
+
+}
+
+
+if(t.status==="Đã xong"){
+
+buttons+=`
+
+<button
+class="btn blue"
+onclick="returnCustomer(${t.id})">
+
+📦 Đã trả khách
+
+</button>
+
+`;
+
+}
+
+
+buttons+=`
+
+<button
+class="btn"
+onclick="viewTicket(${t.id})">
+
+🧾 Xem phiếu
+
+</button>
+
+`;
+
+
+return `
+
+<div class="item">
+
+<div class="top">
+
+<b>
+${escapeHTML(t.code)}
+ ·
+${escapeHTML(t.customer)}
+</b>
+
+${badge}
+
+</div>
+
+<p>
+📱
+${escapeHTML(t.brand)}
+ ${escapeHTML(t.model)}
+</p>
+
+<p>
+📞 ${escapeHTML(t.phone)}
+</p>
+
+<p>
+👨‍🔧 KTV:
+<b>
+${escapeHTML(memberName(t.technician))}
+</b>
+</p>
+
+<p>
+🔧 ${escapeHTML(t.repair||"Chưa nhập nội dung sửa")}
+</p>
+
+<div class="time">
+🕒 Tiếp nhận:
+${formatDateTime(t.receivedAt)}
+</div>
+
+${
+t.completedAt
+?
+`<div class="time">
+✅ Hoàn thành:
+${formatDateTime(t.completedAt)}
+</div>`
+:""
+}
+
+${
+t.returnedAt
+?
+`<div class="time">
+📦 Trả khách:
+${formatDateTime(t.returnedAt)}
+</div>`
+:""
+}
+
+<p>
+💰 Tổng:
+<b>${money(t.total)}</b>
+ · Còn:
+<b>${money(t.balance)}</b>
+</p>
+
+<div class="actions">
+
+${buttons}
+
+<button
+class="btn danger"
+onclick="deleteTicket(${t.id})">
+
+🗑️ Xóa
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function completeRepair(id){
+
+let t=
+tickets.find(x=>x.id===id);
+
+if(!t)return;
+
+
+if(t.status!=="Đang sửa")return;
+
+
+if(
+!confirm(
+"Xác nhận máy "+t.code+
+" đã sửa xong?"
+)
+)return;
+
+
+t.status="Đã xong";
+
+t.completedAt=
+new Date().toISOString();
+
+
+saveTickets();
+
+updateStats();
+
+renderRepair();
+
+alert(
+"✅ Đã hoàn thành sửa chữa!"
 );
 
-return member
-?member.name
-:"Chưa phân công";
+}
+
+
+function returnCustomer(id){
+
+let t=
+tickets.find(x=>x.id===id);
+
+if(!t)return;
+
+
+if(t.status!=="Đã xong")return;
+
+
+if(
+!confirm(
+"Xác nhận đã giao máy cho khách?"
+)
+)return;
+
+
+t.status="Đã trả";
+
+t.returnedAt=
+new Date().toISOString();
+
+
+saveTickets();
+
+updateStats();
+
+renderRepair();
+
+alert(
+"📦 Đã ghi nhận trả máy cho khách."
+);
 
 }
 
@@ -972,26 +1314,26 @@ let search=
 .trim();
 
 
-let filtered=
-tickets.filter(ticket=>{
+let list=
+tickets.filter(t=>{
 
 let text=
-Object.values(ticket)
+Object.values(t)
 .join(" ")
 .toLowerCase();
 
 return text.includes(search)||
-memberName(ticket.technician)
+memberName(t.technician)
 .toLowerCase()
 .includes(search);
 
 });
 
 
-if(!filtered.length){
+if(!list.length){
 
 $("listbox").innerHTML=
-'<div class="empty">Không có phiếu.</div>';
+'<div class="empty">Chưa có phiếu.</div>';
 
 return;
 
@@ -999,132 +1341,56 @@ return;
 
 
 $("listbox").innerHTML=
-filtered
-.map(ticketHTML)
-.join("");
-
-}
-
-
-function ticketHTML(ticket){
-
-let badgeClass="";
-
-if(ticket.status==="Đã xong"){
- badgeClass="done";
-}
-
-if(ticket.status==="Đã trả"){
- badgeClass="returned";
-}
-
-
-return `
+list.map(t=>`
 
 <div class="item">
 
 <div class="top">
 
 <b>
-${escapeHTML(ticket.code)}
+${escapeHTML(t.code)}
  ·
-${escapeHTML(ticket.customer)}
+${escapeHTML(t.customer)}
 </b>
 
-<span class="badge ${badgeClass}">
-${escapeHTML(ticket.status)}
+<span class="badge
+${t.status==="Đã xong"?"done":""}
+${t.status==="Đã trả"?"returned":""}">
+${escapeHTML(t.status)}
 </span>
 
 </div>
 
 <p>
-📱
-${escapeHTML(ticket.brand)}
- ${escapeHTML(ticket.model)}
+📱 ${escapeHTML(t.brand)}
+ ${escapeHTML(t.model)}
 </p>
 
 <p>
-📞 ${escapeHTML(ticket.phone)}
+📞 ${escapeHTML(t.phone)}
 </p>
 
 <p>
-👨‍🔧
-${escapeHTML(
-memberName(ticket.technician)
-)}
+👨‍🔧 ${escapeHTML(memberName(t.technician))}
 </p>
 
 <p>
-💰 Tổng:
-<b>${money(ticket.total)}</b>
-</p>
-
-<p>
-💵 Còn:
-<b>${money(ticket.balance)}</b>
+💰 ${money(t.total)}
 </p>
 
 <div class="actions">
 
 <button
 class="btn"
-onclick="viewTicket(${ticket.id})">
-👁️ Xem
-</button>
-
-<button
-class="btn"
-onclick="changeStatus(${ticket.id})">
-🔄 Trạng thái
-</button>
-
-<button
-class="btn danger"
-onclick="deleteTicket(${ticket.id})">
-🗑️ Xóa
+onclick="viewTicket(${t.id})">
+🧾 Xem
 </button>
 
 </div>
 
 </div>
 
-`;
-
-}
-
-
-function changeStatus(id){
-
-let ticket=
-tickets.find(
- item=>item.id===id
-);
-
-if(!ticket)return;
-
-
-let status=
-prompt(
-"Nhập trạng thái:\nĐang sửa\nĐã xong\nĐã trả",
-ticket.status
-);
-
-
-if(
- status==="Đang sửa"||
- status==="Đã xong"||
- status==="Đã trả"
-){
-
-ticket.status=status;
-
-saveTickets();
-
-updateStats();
-
-renderList();
-
-}
+`).join("");
 
 }
 
@@ -1132,20 +1398,18 @@ renderList();
 function deleteTicket(id){
 
 if(
- !confirm(
- "Bạn có chắc muốn xóa phiếu này?"
- )
+!confirm("Bạn có chắc muốn xóa phiếu này?")
 )return;
 
 
 tickets=
-tickets.filter(
- ticket=>ticket.id!==id
-);
+tickets.filter(t=>t.id!==id);
 
 saveTickets();
 
 updateStats();
+
+renderRepair();
 
 renderList();
 
@@ -1154,12 +1418,10 @@ renderList();
 
 function viewTicket(id){
 
-let ticket=
-tickets.find(
- item=>item.id===id
-);
+let t=
+tickets.find(x=>x.id===id);
 
-if(!ticket)return;
+if(!t)return;
 
 
 $("receipt").innerHTML=`
@@ -1174,137 +1436,145 @@ PD <span>TechCare</span>
 PHIẾU TIẾP NHẬN / SỬA CHỮA
 </div>
 
-<div class="receipt-line"></div>
+<div class="line"></div>
 
 <table>
 
 <tr>
 <td>Mã phiếu</td>
 <td class="right">
-<b>${escapeHTML(ticket.code)}</b>
+<b>${escapeHTML(t.code)}</b>
 </td>
 </tr>
 
 <tr>
 <td>Ngày nhận</td>
 <td class="right">
-${escapeHTML(ticket.date)}
+${escapeHTML(t.date)}
 </td>
 </tr>
 
 <tr>
 <td>Khách hàng</td>
 <td class="right">
-${escapeHTML(ticket.customer)}
+${escapeHTML(t.customer)}
 </td>
 </tr>
 
 <tr>
-<td>Số điện thoại</td>
+<td>SĐT</td>
 <td class="right">
-${escapeHTML(ticket.phone)}
+${escapeHTML(t.phone)}
 </td>
 </tr>
 
 <tr>
 <td>Thiết bị</td>
 <td class="right">
-${escapeHTML(ticket.brand)}
- ${escapeHTML(ticket.model)}
+${escapeHTML(t.brand)}
+ ${escapeHTML(t.model)}
 </td>
 </tr>
 
 <tr>
 <td>IMEI / Serial</td>
 <td class="right">
-${escapeHTML(ticket.imei||"-")}
+${escapeHTML(t.imei||"-")}
 </td>
 </tr>
 
 <tr>
-<td>Người phụ trách</td>
+<td>Kỹ thuật viên</td>
 <td class="right">
-${escapeHTML(
-memberName(ticket.technician)
-)}
-</td>
-</tr>
-
-<tr>
-<td>Tình trạng</td>
-<td class="right">
-${escapeHTML(ticket.condition||"-")}
-</td>
-</tr>
-
-<tr>
-<td>Nội dung sửa</td>
-<td class="right">
-${escapeHTML(ticket.repair||"-")}
+${escapeHTML(memberName(t.technician))}
 </td>
 </tr>
 
 <tr>
 <td>Trạng thái</td>
 <td class="right">
-<b>${escapeHTML(ticket.status)}</b>
+<b>${escapeHTML(t.status)}</b>
+</td>
+</tr>
+
+<tr>
+<td>Tình trạng</td>
+<td class="right">
+${escapeHTML(t.condition||"-")}
+</td>
+</tr>
+
+<tr>
+<td>Nội dung sửa</td>
+<td class="right">
+${escapeHTML(t.repair||"-")}
 </td>
 </tr>
 
 <tr>
 <td>Linh kiện</td>
 <td class="right">
-${money(ticket.parts)}
+${money(t.parts)}
 </td>
 </tr>
 
 <tr>
 <td>Tiền công</td>
 <td class="right">
-${money(ticket.labor)}
+${money(t.labor)}
 </td>
 </tr>
 
 <tr>
-<td>
-<b>TỔNG CỘNG</b>
-</td>
+<td>TỔNG CỘNG</td>
 <td class="right total">
-${money(ticket.total)}
+${money(t.total)}
 </td>
 </tr>
 
 <tr>
 <td>Đã cọc</td>
 <td class="right">
-${money(ticket.deposit)}
+${money(t.deposit)}
 </td>
 </tr>
 
 <tr>
-<td>
-<b>Còn lại</b>
-</td>
+<td>Còn lại</td>
 <td class="right">
-<b>${money(ticket.balance)}</b>
+<b>${money(t.balance)}</b>
 </td>
 </tr>
 
 </table>
 
-<div class="receipt-line"></div>
+<div class="line"></div>
+
+<p>
+<b>Tiếp nhận:</b>
+${formatDateTime(t.receivedAt)}
+</p>
+
+<p>
+<b>Hoàn thành:</b>
+${formatDateTime(t.completedAt)}
+</p>
+
+<p>
+<b>Trả khách:</b>
+${formatDateTime(t.returnedAt)}
+</p>
 
 <p>
 <b>Ghi chú:</b>
-${escapeHTML(ticket.note||"-")}
+${escapeHTML(t.note||"-")}
 </p>
 
 <div style="
 display:flex;
 justify-content:space-between;
 text-align:center;
-margin-top:45px;
-">
+margin-top:45px">
 
 <div>
 Khách hàng
@@ -1323,33 +1593,29 @@ ____________
 </div>
 `;
 
-$("modal")
-.classList.add("show");
+$("modal").classList.add("show");
 
 }
 
 
 function closeModal(){
 
-$("modal")
-.classList.remove("show");
+$("modal").classList.remove("show");
 
 }
 
 
+/* THÀNH VIÊN */
+
 function addMember(){
 
 let name=
-$("memberName")
-.value
-.trim();
+$("memberName").value.trim();
 
 
 if(!name){
 
-alert(
-"Vui lòng nhập họ và tên."
-);
+alert("Vui lòng nhập họ tên.");
 
 return;
 
@@ -1357,23 +1623,19 @@ return;
 
 
 let username=
-$("memberUsername")
-.value
-.trim();
+$("memberUsername").value.trim();
 
 
 if(
- username &&
- members.some(
- member=>
- member.username.toLowerCase()===
- username.toLowerCase()
- )
+username &&
+members.some(
+m=>
+(m.username||"").toLowerCase()===
+username.toLowerCase()
+)
 ){
 
-alert(
-"Tên tài khoản đã tồn tại."
-);
+alert("Tài khoản đã tồn tại.");
 
 return;
 
@@ -1389,8 +1651,7 @@ code:nextMemberCode(),
 name:name,
 
 phone:
-$("memberPhone")
-.value.trim(),
+$("memberPhone").value.trim(),
 
 role:
 $("memberRole").value,
@@ -1422,7 +1683,8 @@ renderMembers();
 updateStats();
 
 alert(
-"Đã thêm thành viên "+member.name
+"Đã thêm thành viên "+
+member.name
 );
 
 }
@@ -1450,29 +1712,23 @@ let search=
 .trim();
 
 
-let filtered=
-members.filter(member=>{
+let list=
+members.filter(m=>
 
-let text=
 (
-member.code+
-" "+
-member.name+
-" "+
-member.phone+
-" "+
-member.role+
-" "+
-member.username
+m.code+" "+
+m.name+" "+
+m.phone+" "+
+m.role+" "+
+m.username
 )
-.toLowerCase();
+.toLowerCase()
+.includes(search)
 
-return text.includes(search);
-
-});
+);
 
 
-if(!filtered.length){
+if(!list.length){
 
 $("memberList").innerHTML=
 '<div class="empty">Chưa có thành viên.</div>';
@@ -1483,24 +1739,16 @@ return;
 
 
 $("memberList").innerHTML=
-filtered
-.map(member=>{
+list.map(m=>{
 
 let initials=
-member.name
+m.name
 .trim()
 .split(/\s+/)
 .slice(-2)
-.map(word=>word[0])
+.map(x=>x[0])
 .join("")
 .toUpperCase();
-
-
-let statusClass=
-member.status===
-"Đang hoạt động"
-?"active"
-:"locked";
 
 
 return `
@@ -1517,54 +1765,50 @@ ${escapeHTML(initials)}
 
 <div>
 
-<b>
-${escapeHTML(member.name)}
-</b>
+<b>${escapeHTML(m.name)}</b>
 
-<div class="muted">
-${escapeHTML(member.code)}
+<div class="time">
+${escapeHTML(m.code)}
  ·
-${escapeHTML(member.role)}
+${escapeHTML(m.role)}
 </div>
 
 </div>
 
 </div>
 
-<span class="${statusClass}">
-${escapeHTML(member.status)}
+<span class="${
+m.status==="Đang hoạt động"
+?"active"
+:"locked"
+}">
+${escapeHTML(m.status)}
 </span>
 
 </div>
 
-<p class="muted">
-📞
-${escapeHTML(
-member.phone||"Chưa có SĐT"
-)}
+<p class="time">
+📞 ${escapeHTML(m.phone||"Chưa có SĐT")}
 </p>
 
-<p class="muted">
-👤 Tài khoản:
-${escapeHTML(
-member.username||"Chưa tạo"
-)}
+<p class="time">
+👤 ${escapeHTML(m.username||"Chưa có tài khoản")}
 </p>
 
 <div class="actions">
 
 <button
 class="btn"
-onclick="editMember('${member.id}')">
+onclick="editMember('${m.id}')">
 ✏️ Sửa
 </button>
 
 <button
 class="btn"
-onclick="toggleMember('${member.id}')">
+onclick="toggleMember('${m.id}')">
 
 ${
-member.status==="Đang hoạt động"
+m.status==="Đang hoạt động"
 ?"🔒 Tạm khóa"
 :"🔓 Mở lại"
 }
@@ -1573,7 +1817,7 @@ member.status==="Đang hoạt động"
 
 <button
 class="btn danger"
-onclick="deleteMember('${member.id}')">
+onclick="deleteMember('${m.id}')">
 🗑️ Xóa
 </button>
 
@@ -1583,104 +1827,58 @@ onclick="deleteMember('${member.id}')">
 
 `;
 
-})
-.join("");
+}).join("");
 
 }
 
 
 function editMember(id){
 
-let member=
-members.find(
- item=>item.id===id
-);
+let m=
+members.find(x=>x.id===id);
 
-if(!member)return;
+if(!m)return;
 
 
 let name=
-prompt(
-"Họ và tên:",
-member.name
-);
+prompt("Họ và tên:",m.name);
 
 if(name===null)return;
 
 
 let phone=
-prompt(
-"Số điện thoại:",
-member.phone||""
-);
+prompt("Số điện thoại:",m.phone||"");
 
 if(phone===null)return;
 
 
 let role=
-prompt(
-"Vai trò:",
-member.role
-);
+prompt("Vai trò:",m.role);
 
 if(role===null)return;
 
 
 let username=
-prompt(
-"Tài khoản:",
-member.username||""
-);
+prompt("Tài khoản:",m.username||"");
 
 if(username===null)return;
 
 
-if(
- username &&
- members.some(
- item=>
- item.id!==id &&
- item.username.toLowerCase()===
- username.toLowerCase()
- )
-){
-
-alert(
-"Tên tài khoản đã tồn tại."
-);
-
-return;
-
-}
-
-
-member.name=
-name.trim()||member.name;
-
-member.phone=
-phone.trim();
-
-member.role=
-role.trim()||member.role;
-
-member.username=
-username.trim();
+m.name=name.trim()||m.name;
+m.phone=phone.trim();
+m.role=role.trim()||m.role;
+m.username=username.trim();
 
 
 let password=
 prompt(
-"Mật khẩu mới, bỏ trống để giữ nguyên:",
+"Mật khẩu mới, bỏ trống nếu giữ nguyên:",
 ""
 );
 
 
-if(
- password!==null &&
- password!==""
-){
-
-member.password=password;
-
+if(password){
+m.password=password;
 }
 
 
@@ -1692,23 +1890,19 @@ renderMembers();
 
 updateStats();
 
-renderList();
-
 }
 
 
 function toggleMember(id){
 
-let member=
-members.find(
- item=>item.id===id
-);
+let m=
+members.find(x=>x.id===id);
 
-if(!member)return;
+if(!m)return;
 
 
-member.status=
-member.status==="Đang hoạt động"
+m.status=
+m.status==="Đang hoạt động"
 ?"Tạm khóa"
 :"Đang hoạt động";
 
@@ -1726,35 +1920,27 @@ updateStats();
 
 function deleteMember(id){
 
-let member=
-members.find(
- item=>item.id===id
-);
+let m=
+members.find(x=>x.id===id);
 
-if(!member)return;
+if(!m)return;
 
 
 if(
- !confirm(
- "Xóa thành viên "+
- member.name+
- "?"
- )
+!confirm(
+"Xóa thành viên "+m.name+"?"
+)
 )return;
 
 
 members=
-members.filter(
- item=>item.id!==id
-);
+members.filter(x=>x.id!==id);
 
 
-tickets.forEach(ticket=>{
+tickets.forEach(t=>{
 
-if(ticket.technician===id){
-
-ticket.technician="";
-
+if(t.technician===id){
+t.technician="";
 }
 
 });
@@ -1768,42 +1954,43 @@ fillTechnicians();
 
 renderMembers();
 
-renderList();
-
 updateStats();
+
+renderRepair();
 
 }
 
+
+/* THỐNG KÊ */
 
 function updateStats(){
 
 $("doing").textContent=
 tickets.filter(
- ticket=>ticket.status==="Đang sửa"
+t=>t.status==="Đang sửa"
 ).length;
 
 
 $("done").textContent=
 tickets.filter(
- ticket=>ticket.status==="Đã xong"
+t=>t.status==="Đã xong"
 ).length;
 
 
 $("returned").textContent=
 tickets.filter(
- ticket=>ticket.status==="Đã trả"
+t=>t.status==="Đã trả"
 ).length;
 
 
 let revenue=
 tickets
 .filter(
- ticket=>ticket.status==="Đã trả"
+t=>t.status==="Đã trả"
 )
 .reduce(
- (sum,ticket)=>
- sum+ticket.total,
- 0
+(sum,t)=>sum+t.total,
+0
 );
 
 
@@ -1813,9 +2000,22 @@ money(revenue);
 
 $("memberCount").textContent=
 members.filter(
- member=>
- member.status==="Đang hoạt động"
+m=>m.status==="Đang hoạt động"
 ).length;
+
+
+let repair=
+tickets.filter(
+t=>t.status==="Đang sửa"
+).slice(0,5);
+
+
+$("homeRepair").innerHTML=
+repair.length
+?
+repair.map(repairCard).join("")
+:
+'<div class="empty">🎉 Không có máy đang sửa.</div>';
 
 
 let recent=
@@ -1824,13 +2024,17 @@ tickets.slice(0,5);
 
 $("recent").innerHTML=
 recent.length
-?recent.map(ticketHTML).join("")
-:'<div class="empty">Chưa có phiếu.</div>';
+?
+recent.map(repairCard).join("")
+:
+'<div class="empty">Chưa có phiếu.</div>';
 
 }
 
 
-function clock(){
+/* GIỜ */
+
+function updateClock(){
 
 let now=new Date();
 
@@ -1841,15 +2045,12 @@ now.toLocaleDateString("vi-VN");
 
 }
 
-setInterval(clock,1000);
+setInterval(updateClock,1000);
 
-clock();
+updateClock();
 
 
-/*
-Tạo tài khoản quản trị mặc định
-nếu chưa có thành viên.
-*/
+/* TẠO ADMIN MẶC ĐỊNH */
 
 if(members.length===0){
 
